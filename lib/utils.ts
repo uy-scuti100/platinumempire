@@ -34,10 +34,6 @@ export const useDiscountedPrice = (
 
 	return discountPercentage.toFixed();
 };
-export const toBase64 = (str: string) =>
-	typeof window === "undefined"
-		? Buffer.from(str).toString("base64")
-		: window.btoa(str);
 
 export const siteConfig = {
 	name: "Platinum Fashion Hub",
@@ -52,22 +48,6 @@ export const siteConfig = {
 		github: "https://github.com/uy-scuti100",
 	},
 };
-
-export const srConfig = (delay: number = 100, viewFactor: number = 0.25) => ({
-	origin: "bottom",
-	distance: "100px",
-	duration: 500,
-	delay,
-	rotate: { x: 0, y: 0, z: 0 },
-	opacity: 0,
-	scale: 1,
-	easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
-	mobile: true,
-	reset: false,
-	useDelay: "always",
-	viewFactor,
-	viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
-});
 
 export const shuffleArray = (array: IProduct[]) => {
 	let currentIndex = array.length,
@@ -88,18 +68,21 @@ export const shuffleArray = (array: IProduct[]) => {
 
 	return array;
 };
+export const getRandomProducts = (products: IProduct[]) => {
+	const shuffledProducts = shuffleArray(products);
+	const randomProducts = shuffledProducts.slice(0, 4);
+	return randomProducts;
+};
+export function searchParamsToObject(searchParams: {
+	[key: string]: string | string[] | undefined;
+}) {
+	const params: { [key: string]: string | string[] } = {};
 
-// const revealContainer = useRef<HTMLDivElement | null>(null);
+	for (const [key, value] of Object.entries(searchParams)) {
+		if (value !== undefined) {
+			params[key] = value;
+		}
+	}
 
-// // Call the hook at the top level of the component
-// const prefersReducedMotion = usePrefersReducedMotion();
-
-// useEffect(() => {
-//     if (prefersReducedMotion) {
-//         return;
-//     }
-
-//     if (revealContainer.current && sr) {
-//         sr.reveal(revealContainer.current, srConfig());
-//     }
-// }, [prefersReducedMotion]);
+	return params;
+}

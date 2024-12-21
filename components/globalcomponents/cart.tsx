@@ -1,6 +1,5 @@
 "use client";
 
-import CartProducts from "@/app/(store)/checkout/cart/cartProducts";
 import {
 	Sheet,
 	SheetContent,
@@ -13,6 +12,7 @@ import Link from "next/link";
 
 import { ScrollArea } from "../ui/scroll-area";
 
+import CartProducts from "@/app/(store)/(cart)/cart/cartProducts";
 import { ShoppingCartIcon } from "lucide-react";
 
 interface CartComponentProps {

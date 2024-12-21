@@ -1,10 +1,10 @@
-import { fetchProductBySlug } from "@/actions";
 import {
 	HydrationBoundary,
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
 import ProductComponent from "../components/product-component";
+import { fetchProductBySlug } from "@/actions";
 export type paramsType = Promise<{ slug: string }>;
 export default async function page({ params }: { params: paramsType }) {
 	const { slug } = await params;

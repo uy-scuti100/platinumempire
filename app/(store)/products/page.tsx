@@ -5,7 +5,9 @@ import {
 	QueryClient,
 } from "@tanstack/react-query";
 import GridContainer from "./components/GridContainer";
-export type ParamsType = {
+
+// Define the expected parameter types
+export type ParamsType = Promise<{
 	date?: string;
 	price?: string;
 	priceRange?: string;
@@ -18,8 +20,9 @@ export type ParamsType = {
 	shoeSizes?: string;
 	bagSizes?: string;
 	accessorySizes?: string;
-};
-export default async function page({
+}>;
+
+export default async function Page({
 	searchParams,
 }: {
 	searchParams: ParamsType;
@@ -38,24 +41,28 @@ export default async function page({
 		accessorySizes,
 		gender,
 	} = await searchParams;
-	const filterConditions = ['_type == "products"'];
-	const orderConditions = [];
 
-	// Handle ordering
+	const filterConditions: string[] = ['_type == "products"'];
+	const orderConditions: string[] = [];
+
+	// Handle ordering based on date
 	if (date && date !== "none") {
 		orderConditions.push(`_createdAt ${date}`);
 	}
+
+	// Handle ordering based on price
 	if (price && price !== "none") {
 		orderConditions.push(`price ${price}`);
 	}
 
 	// Handle price range
-	if (priceRange) {
+	if (typeof priceRange === "string") {
 		const [min, max] = priceRange.split(",").map(Number);
 		filterConditions.push(`price >= ${min} && price <= ${max}`);
 	}
 
-	if (categories) {
+	// Handle category filtering
+	if (categories && typeof categories === "string") {
 		const categoryArray = categories.split(",");
 		const categoryConditions = categoryArray.map(
 			(cat) =>
@@ -64,20 +71,23 @@ export default async function page({
 		filterConditions.push(`(${categoryConditions.join(" || ")})`);
 	}
 
-	// Handle product status
+	// Handle "isNew" filter
 	if (isNew === "true") {
 		filterConditions.push("isNew == true");
 	}
+
+	// Handle "onSale" filter
 	if (onSale === "true") {
 		filterConditions.push("onSale == true");
 	}
 
+	// Handle gender filter
 	if (gender) {
 		filterConditions.push(`gender == "${gender}"`);
 	}
 
-	// Handle references for different types and sizes
-	if (clotheTypes) {
+	// Handle clothe types filter
+	if (clotheTypes && typeof clotheTypes === "string") {
 		const typesArray = clotheTypes.split(",");
 		const typeConditions = typesArray.map(
 			(type) =>
@@ -86,50 +96,30 @@ export default async function page({
 		filterConditions.push(`(${typeConditions.join(" || ")})`);
 	}
 
-	if (clotheSizes) {
-		const sizesArray = clotheSizes.split(",");
-		const sizeConditions = sizesArray.map(
-			(size) =>
-				`count(clotheSizes[_type == "reference" && references(*[_type == "clotheSize" && name == "${size}"]._id)]) > 0`
-		);
-		filterConditions.push(`(${sizeConditions.join(" || ")})`);
-	}
+	// Handle size filters
+	const handleSizeFilter = (sizes: string | undefined, type: string) => {
+		if (sizes && typeof sizes === "string") {
+			const sizesArray = sizes.split(",");
+			const sizeConditions = sizesArray.map(
+				(size) =>
+					`count(${type}[_type == "reference" && references(*[_type == "${type.slice(0, -1)}" && name == "${size}"]._id)]) > 0`
+			);
+			filterConditions.push(`(${sizeConditions.join(" || ")})`);
+		}
+	};
 
-	if (shoeSizes) {
-		const sizesArray = shoeSizes.split(",");
-		const sizeConditions = sizesArray.map(
-			(size) =>
-				`count(shoeSizes[_type == "reference" && references(*[_type == "shoeSize" && name == "${size}"]._id)]) > 0`
-		);
-		filterConditions.push(`(${sizeConditions.join(" || ")})`);
-	}
+	handleSizeFilter(clotheSizes, "clotheSizes");
+	handleSizeFilter(shoeSizes, "shoeSizes");
+	handleSizeFilter(bagSizes, "bagSizes");
+	handleSizeFilter(accessorySizes, "accessorySizes");
 
-	if (bagSizes) {
-		const sizesArray = bagSizes.split(",");
-		const sizeConditions = sizesArray.map(
-			(size) =>
-				`count(bagSizes[_type == "reference" && references(*[_type == "bagSize" && name == "${size}"]._id)]) > 0`
-		);
-		filterConditions.push(`(${sizeConditions.join(" || ")})`);
-	}
-
-	if (accessorySizes) {
-		const sizesArray = accessorySizes.split(",");
-		const sizeConditions = sizesArray.map(
-			(size) =>
-				`count(accessorySizes[_type == "reference" && references(*[_type == "accessorySize" && name == "${size}"]._id)]) > 0`
-		);
-		filterConditions.push(`(${sizeConditions.join(" || ")})`);
-	}
-
+	// Construct the final filter and order queries
 	const filter = `*[${filterConditions.join(" && ")}]`;
 	const order = orderConditions.length
 		? ` | order(${orderConditions.join(", ")})`
 		: "";
 
 	const finalQuery = filter + order;
-
-	console.log("Final Query:", finalQuery);
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({

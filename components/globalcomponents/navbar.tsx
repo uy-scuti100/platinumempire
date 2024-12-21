@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { CartComponent } from "./cart";
 import Menu from "./menu";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import SearchIcon from "./search-icon";
 
@@ -109,7 +110,7 @@ export default function Navbar() {
 						href={"/"}
 						className={`absolute flex items-center justify-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ${!isAboveLimit && isHome ? "backdrop-blur-sm px-4 py-2 bg-black/10 rounded-md" : ""} `}
 					>
-						<img
+						<Image
 							src="/logo.svg"
 							alt="platinum  Fashion hub"
 							className="w-[150px] xl:w-[200px] z-[70]"

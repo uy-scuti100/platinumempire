@@ -108,7 +108,7 @@ export const fetchProductBySlug = async (
 export const fetchTwoFromEachCategory = async (categories: string[]) => {
 	// Single GROQ query to fetch 2 products per category
 	const TWO_FROM_EACH_CATEGORY_QUERY = `
-    *[_type == "category" && name in $categories] {
+    *[_type == "category" && name in $categories && isNew == true] {
         name,
         "products": *[_type == "products" && references(^._id)]
         | order(_createdAt desc)[0...2] {
