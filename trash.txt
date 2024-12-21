@@ -1,0 +1,495 @@
+{
+      name: 'favoriteColor',
+      title: 'Favorite color',
+      type: 'color',
+    },
+
+
+    // Fetch single product
+// export async function getProductById(id: string) {
+// 	const query = `*[_type == "product" && _id == $id][0]{
+//     _id,
+//             name,
+//             price,
+//             isNew,
+//             onSale,
+//             inStock,
+//             discountedPrice,
+//             _createdAt,
+//             "images": images[].asset->url,
+//             "bagTypes": bagTypes[]->name,
+//             "clotheTypes": clotheTypes[]->name,
+//             "accessoryTypes": accessoryTypes[]->name,
+//             "colors": colors[]->{name, value},
+//             "accessorySizes": accessorySizes[]->name,
+//             "bagSizes": bagSizes[]->name,
+//             "shoeSizes": shoeSizes[]->name,
+//             "clotheSizes": clotheSizes[]->name
+//     }
+//   }`;
+
+// 	return await client.fetch(query, { id });
+// }
+
+// ```
+
+// 2. Sanity Schema (for reference):
+
+// <antArtifact identifier="sanity-schema" type="application/vnd.ant.code" language="typescript" title="Sanity Schema for Products">
+// export default {
+//   name: 'product',
+//   title: 'Product',
+//   type: 'document',
+//   fields: [
+//     {
+//       name: 'name',
+//       title: 'Name',
+//       type: 'string',
+//       validation: Rule => Rule.required()
+//     },
+//     {
+//       name: 'description',
+//       title: 'Description',
+//       type: 'text'
+//     },
+//     {
+//       name: 'price',
+//       title: 'Price',
+//       type: 'number',
+//       validation: Rule => Rule.required().min(0)
+//     },
+//     {
+//       name: 'image',
+//       title: 'Product Image',
+//       type: 'image',
+//       options: {
+//         hotspot: true
+//       }
+//     },
+//     {
+//       name: 'category',
+//       title: 'Category',
+//       type: 'string'
+//     },
+//     {
+//       name: 'stock',
+//       title: 'Stock Quantity',
+//       type: 'number',
+//       validation: Rule => Rule.required().min(0)
+//     },
+//     {
+//       name: 'upsellItems',
+//       title: 'Upsell Items',
+//       type: 'array',
+//       of: [{ type: 'reference', to: [{ type: 'product' }] }]
+//     }
+//   ]
+// }
+// ```
+
+// 3. Updated Checkout Page:
+
+// <antArtifact identifier="checkout-page-sanity" type="application/vnd.ant.code" language="typescript" title="Checkout Page with Sanity Integration">
+// import React, { useState, useEffect } from 'react';
+// import { useForm } from 'react-hook-form';
+// import { zodResolver } from '@hookform/resolvers/zod';
+// import * as z from 'zod';
+// import axios from 'axios';
+// import { getAllProducts, urlForImage } from '../lib/sanity';
+// import { initializePaystackTransaction } from '../lib/paystack';
+// import { client } from '@/sanity/lib/client';
+// import getBase64 from '@/lib/getBase64';
+// import { Products } from '@/sanity.types';
+// import { groq } from 'next-sanity';
+
+// // Validation schema
+
+// type CheckoutFormData = z.infer<typeof checkoutSchema>;
+
+// const CheckoutPage: React.FC = () => {
+//   const [cartItems, setCartItems] = useState<any[]>([]);
+//   const [upsellProducts, setUpsellProducts] = useState<any[]>([]);
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const products = await getAllProducts();
+
+//         // Assuming first items in cart and upsell products
+//         setCartItems(products.slice(0, 2));
+//         setUpsellProducts(products.filter(p =>
+//           !cartItems.some(cartItem => cartItem._id === p._id)
+//         ).slice(0, 4));
+//       } catch (error) {
+//         console.error('Failed to fetch products:', error);
+//       }
+//     };
+
+//     fetchProducts();
+//   }, []);
+
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors }
+//   } = useForm<CheckoutFormData>({
+//     resolver: zodResolver(checkoutSchema)
+//   });
+
+//   const calculateTotal = () => {
+//     return cartItems.reduce((total, item) => total + (item.price || 0), 0);
+//   };
+
+//   const onSubmit = async (data: CheckoutFormData) => {
+//     try {
+//       const totalAmount = calculateTotal();
+
+//       // Initialize Paystack transaction
+//       const paystackResponse = await initializePaystackTransaction(
+//         totalAmount,
+//         data.email
+//       );
+
+//       // Redirect to Paystack payment page
+//       window.location.href = paystackResponse.data.authorization_url;
+//     } catch (error) {
+//       console.error('Checkout error:', error);
+//       alert('Failed to process payment. Please try again.');
+//     }
+//   };
+
+//   const addUpsellItem = (product: any) => {
+//     if (!cartItems.some(item => item._id === product._id)) {
+//       setCartItems(prev => [...prev, product]);
+//     }
+//   };
+
+//   return (
+//     <div className="container mx-auto p-4">
+//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//         {/* Order Summary */}
+//         <div>
+//           <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
+//           {cartItems.map(item => (
+//             <div key={item._id} className="flex justify-between mb-2">
+//               <div className="flex items-center">
+//                 {item.imageUrl && (
+//                   <img
+//                     src={urlForImage(item.imageUrl).width(50).height(50).url()}
+//                     alt={item.name}
+//                     className="w-12 h-12 mr-2 object-cover"
+//                   />
+//                 )}
+//                 <span>{item.name}</span>
+//               </div>
+//               <span>
+//                 ${item.price.toFixed(2)}
+//               </span>
+//             </div>
+//           ))}
+//           <div className="font-bold mt-4">
+//             Total: ${calculateTotal().toFixed(2)}
+//           </div>
+//         </div>
+
+//         {/* Checkout Form */}
+//         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+//           <div>
+//             <label>Full Name</label>
+//             <input
+//               {...register('fullName')}
+//               className="w-full p-2 border"
+//             />
+//             {errors.fullName && <p className="text-red-500">{errors.fullName.message}</p>}
+//           </div>
+
+//           <div>
+//             <label>Email</label>
+//             <input
+//               {...register('email')}
+//               className="w-full p-2 border"
+//             />
+//             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+//           </div>
+
+//           <div>
+//             <label>Phone</label>
+//             <input
+//               {...register('phone')}
+//               className="w-full p-2 border"
+//             />
+//             {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+//           </div>
+
+//           <div>
+//             <label>Address</label>
+//             <textarea
+//               {...register('address')}
+//               className="w-full p-2 border"
+//             />
+//             {errors.address && <p className="text-red-500">{errors.address.message}</p>}
+//           </div>
+
+//           <button
+//             type="submit"
+//             className="w-full bg-blue-500 text-white p-2"
+//           >
+//             Proceed to Payment
+//           </button>
+//         </form>
+
+//         {/* Upsell Products */}
+//         <div className="col-span-full">
+//           <h3 className="text-xl font-bold mb-4">Recommended Products</h3>
+//           <div className="grid grid-cols-4 gap-4">
+//             {upsellProducts.map(product => (
+//               <div
+//                 key={product._id}
+//                 className="border p-4 text-center"
+//               >
+//                 {product.imageUrl && (
+//                   <img
+//                     src={urlForImage(product.imageUrl).width(200).height(200).url()}
+//                     alt={product.name}
+//                     className="w-full h-48 object-cover mb-2"
+//                   />
+//                 )}
+//                 <h4>{product.name}</h4>
+//                 <p>${product.price.toFixed(2)}</p>
+//                 <button
+//                   onClick={() => addUpsellItem(product)}
+//                   className="mt-2 bg-green-500 text-white p-2"
+//                 >
+//                   Add to Order
+//                 </button>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CheckoutPage;
+// ```
+
+// 4. Webhook Handler (Remains the same as in previous implementation)
+
+// Environment Configuration:
+// ```
+// NEXT_PUBLIC_SANITY_PROJECT_ID="your_sanity_project_id"
+// NEXT_PUBLIC_SANITY_DATASET="production"
+// PAYSTACK_SECRET_KEY="your_paystack_secret_key"
+// PAYSTACK_PUBLIC_KEY="your_paystack_public_key"
+// NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+// ```
+
+// Key Changes:
+// - Replaced Prisma with Sanity client
+// - Added Sanity configuration for fetching products
+// - Integrated Sanity image URL builder
+// - Dynamic product fetching in checkout page
+// - Added product images from Sanity
+
+// Additional Setup:
+// 1. Install Sanity CLI globally: `npm install -g @sanity/cli`
+// 2. Initialize Sanity project if not already done: `sanity init`
+// 3. Create the product schema in your Sanity studio
+
+// Recommendations:
+// - Implement cart state management (e.g., with Context or Redux)
+// - Add more robust error handling
+// - Create a separate cart component
+// - Implement product stock checking
+
+// Would you like me to elaborate on any part of the implementation or explain how to set up the Sanity schema and queries?
+
+
+{
+	/* <DesktopFilterSheet
+isOpen={isFilterOpen}
+onClose={() => setIsFilterOpen(false)}
+categories={categories}
+sizes={sizes}
+filters={filters}
+onFilterChange={handleFilterChange}
+onApplyFilters={handleApplyFilters}
+onClearFilters={handleClearFilters}
+/> */
+}
+// <MobileFilterDrawer
+// 							isOpen={isFilterOpen}
+// 							onClose={() => setIsFilterOpen(false)}
+// 							categories={categories}
+// 							sizes={sizes}
+// 							filters={filters}
+// 							onFilterChange={handleFilterChange}
+// 							onApplyFilters={handleApplyFilters}
+// 							onClearFilters={handleClearFilters}
+// 						/>
+// <div className="hidden md:flex flex-col gap-4">
+// 				<div className="flex items-center justify-between">
+{
+	/* <div className="flex flex-wrap gap-2">
+							<FilterButton
+								label="Category"
+								onClick={() => setIsFilterOpen((prev) => !prev)}
+								count={filters.categories.length}
+							/>
+							<FilterButton
+								label="Size"
+								onClick={() => setIsFilterOpen((prev) => !prev)}
+								count={filters.sizes.length}
+							/>
+							<Button
+								variant="outline"
+								onClick={() => setIsFilterOpen((prev) => !prev)}
+							>
+								All Filters
+								<SlidersHorizontal className="ml-2 h-4 w-4" />
+							</Button>
+						</div> */
+}
+{
+	/* <div className="flex items-center gap-4">
+							<FilterButton
+								label="Sort By"
+								onClick={() => setIsFilterOpen((prev) => !prev)}
+							/>
+						</div> */
+}
+
+{
+	/* <div className="flex items-center justify-between">
+					<div className="flex flex-wrap gap-2">
+						<FilterButton
+							label="Category"
+							onClickAction={openFilter}
+							count={filters.categories.length}
+						/>
+						<FilterButton
+							label="Size"
+							onClickAction={openFilter}
+							count={filters.sizes.length}
+						/>
+						<Button variant="outline" onClick={openFilter}>
+							All Filters
+							<SlidersHorizontal className="ml-2 h-4 w-4" />
+						</Button>
+					</div>
+					<div className="flex items-center gap-4">
+						<span className="text-sm text-muted-foreground">
+							{totalItems} Items
+						</span>
+						<FilterButton label="Sort By" onClickAction={openFilter} />
+					</div>
+				</div> */
+}
+
+
+
+// <div className="px-4">
+// 						<Breadcrumb>
+// 							<BreadcrumbList>
+// 								<BreadcrumbItem>
+// 									<Link
+// 										href={"/products"}
+// 										className="text-xs font-medium text-black underline capitalize"
+// 									>
+// 										Products
+// 									</Link>
+// 								</BreadcrumbItem>
+// 								<BreadcrumbSeparator />
+// 								<BreadcrumbItem>
+// 									<Link
+// 										href={{
+// 											pathname: "/products",
+// 											query: {
+// 												categories: product?.categories?.[0] ?? "",
+// 											},
+// 										}}
+// 										className="text-xs font-medium text-black underline capitalize"
+// 									>
+// 										{product?.categories?.[0]}
+// 									</Link>
+// 								</BreadcrumbItem>
+// 								<BreadcrumbSeparator />
+// 								<BreadcrumbPage className="text-xs font-medium capitalize font-mont text-[#777]">
+// 									{product?.name}
+// 								</BreadcrumbPage>
+// 							</BreadcrumbList>
+// 						</Breadcrumb>
+// 					</div>
+// 					<div
+// 						className={`${
+// 							!isMobile && "grid px-[0.63rem]"
+// 						} grid-cols-3 max-w-[1920px] mx-auto mt-5`}
+// 					>
+// 						<div className="w-full h-full col-span-2">
+// 							{isMobile ? (
+// 								<Swiper
+// 									modules={[Pagination, Autoplay]}
+// 									className="productSlider"
+// 									autoplay={{
+// 										delay: 3000,
+// 										pauseOnMouseEnter: true,
+// 										disableOnInteraction: true,
+// 									}}
+// 									pagination={{ clickable: true }}
+// 									loop
+// 								>
+// 									{product?.imageUrls?.map((image, index) => (
+// 										<SwiperSlide
+// 											key={index}
+// 											className="relative h-[500px] w-[500px]"
+// 										>
+// 											<Image
+// 												src={urlFor(image).url()}
+// 												fill
+// 												blurDataURL={product.lqips?.[index]}
+// 												alt={`${product?.name} - image`}
+// 												className="object-cover w-full h-full"
+// 												sizes="(min-width: 808px) 50vw, 100vw"
+// 												loading="lazy"
+// 											/>
+// 											{product.isNew && (
+// 												<div className="absolute left-3 bottom-3">
+// 													<span className="bg-[#E85A06] text-white px-2 py-1 text-xs font-medium uppercase">
+// 														New Arrival
+// 													</span>
+// 												</div>
+// 											)}
+// 										</SwiperSlide>
+// 									))}{" "}
+// 								</Swiper>
+// 							) : (
+// 								<div className="grid grid-cols-2 gap-4">
+// 									{product?.imageUrls?.map((image, index) => (
+// 										<div
+// 											key={index}
+// 											className="relative min-w-[300px] min-h-[400px] overflow-hidden"
+// 										>
+// 											<Image
+// 												src={urlFor(image).url()}
+// 												fill
+// 												blurDataURL={product.lqips?.[index]}
+// 												placeholder="blur"
+// 												alt={product?.name ?? ""}
+// 												className="object-cover w-full h-full "
+// 												sizes="(min-width: 808px) 50vw, 100vw"
+// 												loading="lazy"
+// 											/>
+// 											{/* {product.isNew && ( */}
+// 											<div className="absolute left-3 bottom-3">
+// 												<span className="bg-[#E85A06] text-white px-2 py-1 text-xs font-medium uppercase">
+// 													New Arrival
+// 												</span>
+// 											</div>
+// 											{/* )} */}
+// 										</div>
+// 									))}
+// 								</div>
+// 							)}
+// 						</div>
+// 					</div>
