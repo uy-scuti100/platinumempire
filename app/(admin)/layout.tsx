@@ -4,7 +4,7 @@ export default function StoreLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body>{children}</body>
 		</html>
 	);
