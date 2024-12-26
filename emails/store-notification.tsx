@@ -275,7 +275,7 @@ const footer = {
 
 // 	return (
 // 		<div className="bg-gray-100 font-sans text-gray-800 p-6 max-w-3xl mx-auto">
-// 			<div className="bg-white shadow-lg rounded-lg p-6">
+// 			<div className="bg-white shadow-lg rounded-none-lg p-6">
 // 				{/* Header */}
 // 				<h1 className="text-2xl font-bold text-center mb-4">
 // 					New Order Received
@@ -321,17 +321,17 @@ const footer = {
 // 						{products.map((product, index) => (
 // 							<div
 // 								key={index}
-// 								className="flex items-center bg-gray-50 p-4 rounded-lg shadow"
+// 								className="flex items-center bg-gray-50 p-4 rounded-none-lg shadow"
 // 							>
 // 								{/* Product Image */}
 // 								{product.image ? (
 // 									<img
 // 										src={product.image}
 // 										alt={product.name}
-// 										className="w-20 h-20 rounded-lg border mr-4"
+// 										className="w-20 h-20 rounded-none-lg border mr-4"
 // 									/>
 // 								) : (
-// 									<div className="w-20 h-20 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 text-sm mr-4">
+// 									<div className="w-20 h-20 rounded-none-lg bg-gray-200 flex items-center justify-center text-gray-400 text-sm mr-4">
 // 										No Image
 // 									</div>
 // 								)}

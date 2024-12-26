@@ -18,6 +18,8 @@ export interface ICartProduct {
 // Store State Interface
 interface CartState {
 	cart: ICartProduct[];
+
+	isSearchOpen: boolean; // New state for search tray visibility
 	isCartOpen: boolean; // New state for cart tray visibility
 	addToCart: (product: Omit<ICartProduct, "uniqueKey">) => void;
 	removeFromCart: (
@@ -42,13 +44,17 @@ interface CartState {
 	openCart: () => void; // Open the cart tray
 	closeCart: () => void; // Close the cart tray
 
+	openSearch: () => void; // Open the search tray
+	closeSearch: () => void; // Close the search tray
+
 	getCart: () => ICartProduct[];
 }
 
 // Initial State
-const initialState: Pick<CartState, "cart" | "isCartOpen"> = {
+const initialState: Pick<CartState, "cart" | "isCartOpen" | "isSearchOpen"> = {
 	cart: [],
 	isCartOpen: false, // Cart is initially closed
+	isSearchOpen: false, // Search is initially closed
 };
 
 export const useStore = create<CartState>()(
@@ -186,6 +192,12 @@ export const useStore = create<CartState>()(
 
 			// Close the cart tray
 			closeCart: () => set({ isCartOpen: false }),
+
+			// Open the search tray
+			openSearch: () => set({ isSearchOpen: true }),
+
+			// Close the search tray
+			closeSearch: () => set({ isSearchOpen: false }),
 		}),
 		{
 			name: "optimized-cart-store",

@@ -8,6 +8,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "../globals.css";
+import { SearchDialog } from "./(search)/search";
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -113,6 +114,7 @@ export default function RootLayout({
 				<Providers>
 					<Navbar />
 					{children}
+					<SearchDialog />
 					<Footer />
 				</Providers>
 			</body>

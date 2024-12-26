@@ -82,7 +82,7 @@ export default function ProductGrid({
 						</h3>
 
 						<div>
-							<Button asChild className="rounded-none shop-now-btn btn">
+							<Button asChild className="rounded-none  shop-now-btn btn">
 								<Link href={"/products"}>Browse other trendy Products</Link>
 							</Button>
 						</div>
@@ -117,10 +117,10 @@ const MobileControls = ({
 
 export const ProductCardSkeleton = () => (
 	<div className="flex flex-col gap-2">
-		<Skeleton className="w-full md:h-[300px] h-[250px] relative overflow-hidden rounded-none"></Skeleton>
+		<Skeleton className="w-full md:h-[300px] h-[250px] relative overflow-hidden rounded-none "></Skeleton>
 		<div className="flex flex-col gap-1">
-			<Skeleton className="w-full h-6 rounded-none"></Skeleton>
-			<Skeleton className="w-full h-4 rounded-none"></Skeleton>
+			<Skeleton className="w-full h-6 rounded-none "></Skeleton>
+			<Skeleton className="w-full h-4 rounded-none "></Skeleton>
 		</div>
 	</div>
 );

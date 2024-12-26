@@ -1,5 +1,5 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
 import { TrolleyIcon } from "@sanity/icons";
+import { defineArrayMember, defineField, defineType } from "sanity";
 interface CategoryReference {
 	_type: string;
 	_ref: string;
@@ -105,7 +105,10 @@ export const productSchema = defineType({
 			name: "shoeSizes",
 			title: "Shoe Sizes",
 			type: "array",
-			of: [{ type: "reference", to: [{ type: "shoeSize" }] }],
+			of: [{ type: "number" }], // Use numbers directly instead of a reference
+			options: {
+				list: Array.from({ length: 48 - 37 + 1 }, (_, i) => 37 + i), // Generate the list 37-48
+			},
 			hidden: ({ document }) => {
 				const categories = document?.categories as
 					| CategoryReference[]
@@ -115,15 +118,21 @@ export const productSchema = defineType({
 				);
 			},
 			validation: (Rule) =>
-				Rule.custom((value, context) => {
-					return validateCategoryField(
-						value,
-						context,
-						"e4728c52-0c2c-4a0f-b9c8-41621c9c4ef6",
-						"shoes"
-					);
+				Rule.custom((values) => {
+					if (!values || values.length === 0) {
+						return "At least one shoe size must be selected.";
+					}
+					if (
+						values.some(
+							(size) => typeof size !== "number" || size < 37 || size > 48
+						)
+					) {
+						return "Shoe sizes must be between 37 and 48.";
+					}
+					return true;
 				}),
 		}),
+
 		defineField({
 			name: "bagSizes",
 			title: "Bag Sizes",

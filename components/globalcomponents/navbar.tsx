@@ -87,7 +87,7 @@ export default function Navbar() {
 			>
 				<p>
 					FREE DELIVERY AVAILABLE ON ORDERS above{" "}
-					<span className="font-black"> #150,000</span> within Nigeria.
+					<span className="font-black"> #150,000</span> WITHIN 🇳🇬.
 				</p>
 			</motion.div>
 			<div
@@ -122,7 +122,7 @@ export default function Navbar() {
 							loading="lazy"
 							width={150}
 							height={150}
-							className="w-[150px] xl:h-[150px] xl:w-[200px] z-[70] "
+							className="w-[150px] xl:h-[50px] xl:w-[200px] z-[70] "
 							style={
 								isHome
 									? { filter: `brightness(${logoColor}%)` }

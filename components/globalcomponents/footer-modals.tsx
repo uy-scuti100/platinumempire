@@ -36,7 +36,7 @@ const modalContents: Record<string, ModalContent> = {
 					Track your order with ease! Simply reach out to us on WhatsApp using
 					the link below, and provide your order details for updates:
 				</p>
-				<Button className="mt-4 rounded-none" variant="default" asChild>
+				<Button className="mt-4 rounded-none " variant="default" asChild>
 					<a
 						href="https://wa.me/08148439316"
 						target="_blank"

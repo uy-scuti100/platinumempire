@@ -1,3 +1,6 @@
+"use client";
+
+import { useStore } from "@/lib/store/cart";
 import { cn } from "@/lib/utils";
 
 export default function SearchIcon({
@@ -9,6 +12,7 @@ export default function SearchIcon({
 }) {
 	return (
 		<svg
+			onClick={() => useStore.getState().openSearch()}
 			xmlns="http://www.w3.org/2000/svg"
 			width="20"
 			height="20"

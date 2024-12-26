@@ -30,7 +30,7 @@ export function Navigation() {
 			<NavigationMenuList>
 				{/* one */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger className="bg-white/60 rounded-none">
+					<NavigationMenuTrigger className="bg-white/60 rounded-none ">
 						NEW IN
 					</NavigationMenuTrigger>
 					<NavigationMenuContent>
@@ -150,7 +150,7 @@ export function Navigation() {
 				</NavigationMenuItem>
 				{/* two */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger className="bg-white/60 rounded-none">
+					<NavigationMenuTrigger className="bg-white/60 rounded-none ">
 						MALE
 					</NavigationMenuTrigger>
 					<NavigationMenuContent>
@@ -246,7 +246,7 @@ export function Navigation() {
 				</NavigationMenuItem>
 				{/* three */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger className="bg-white/60 rounded-none">
+					<NavigationMenuTrigger className="bg-white/60 rounded-none ">
 						WOMEN
 					</NavigationMenuTrigger>
 					<NavigationMenuContent>
@@ -360,7 +360,7 @@ export function Navigation() {
 				</NavigationMenuItem>
 				{/* four */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger className="bg-white/60 rounded-none">
+					<NavigationMenuTrigger className="bg-white/60 rounded-none ">
 						ACCESSORIES
 					</NavigationMenuTrigger>
 					<NavigationMenuContent>
@@ -454,7 +454,7 @@ export function Navigation() {
 				</NavigationMenuItem>
 				{/* five */}
 				<NavigationMenuItem>
-					<NavigationMenuTrigger className="bg-white/60 rounded-none">
+					<NavigationMenuTrigger className="bg-white/60 rounded-none ">
 						SALE
 					</NavigationMenuTrigger>
 					<NavigationMenuContent>

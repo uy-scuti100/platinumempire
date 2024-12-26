@@ -9,7 +9,7 @@ import { countrySchema } from "./countries";
 import { orderSchema } from "./order";
 import { productSchema } from "./productType";
 import { shippingSchema } from "./shipping";
-import { shoeSizeSchema } from "./shoeSizeType";
+// import { shoeSizeSchema } from "./shoeSizeType";
 import { stockRequestSchema } from "./stockRequset";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -17,7 +17,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 		categorySchema,
 		productSchema,
 		clotheSizeSchema,
-		shoeSizeSchema,
+		// shoeSizeSchema,
 		bagSizeSchema,
 		clotheTypeSchema,
 		accessorySizeSchema,

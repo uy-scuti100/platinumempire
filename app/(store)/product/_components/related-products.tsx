@@ -43,11 +43,11 @@ export default function RelatedProducts({
 						carouselProducts.map((product, i) => (
 							<li
 								key={`${product.slug}${i}`}
-								className="relative aspect-square h-[30vh] max-h-[275px] w-2/3 max-w-[475px] flex-none md:w-1/3"
+								className="relative aspect-square h-[50vh] max-h-[375px] w-2/3 max-w-[475px] flex-none md:w-1/3"
 							>
 								<Link
 									href={`/product/${product.slug}`}
-									className="relative w-full h-[30vh] max-h-[275px] flex-none md:w-full rounded-lg"
+									className="relative w-full h-[30vh] max-h-[475px] flex-none md:w-full rounded-lg"
 								>
 									<GridTileImage
 										alt={product.name}

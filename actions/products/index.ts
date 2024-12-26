@@ -19,7 +19,7 @@ export interface IProduct {
 	lqips: string[];
 	clotheTypes?: string[];
 	bagSizes?: string[];
-	shoeSizes?: string[];
+	shoeSizes?: (37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48)[]; // Updated to enforce sizes 37-48
 	accessorySizes?: string[];
 	clotheSizes?: string[];
 }
@@ -27,8 +27,8 @@ export interface IProduct {
 // Fetch All Poducts
 export async function fetchAllProducts(
 	query: string,
-	start: number = 0, // Default to 0 if not provided
-	limit: number = 12 // Default to 12 if not provided
+	start: number = 0,
+	limit: number = 12
 ): Promise<{ products: IProduct[]; totalCount: number }> {
 	const COUNT_QUERY = `
     count(${query})
@@ -56,6 +56,7 @@ export async function fetchAllProducts(
 			client.fetch<IProduct[]>(ALL_PRODUCTS_QUERY),
 		]);
 
+		console.log("All products Query:", ALL_PRODUCTS_QUERY);
 		return { products: products || [], totalCount: totalCount || 0 };
 	} catch (error) {
 		console.error("Error fetching products:", error);
@@ -176,9 +177,9 @@ export const fetchProductBySlug = async (
             discountedPrice,
             price,
             description,
+            shoeSizes,
             "categories": categories[]->name,
             "bagSizes": bagSizes[]->name,
-            "shoeSizes": shoeSizes[]->name,
             "accessorySizes": accessorySizes[]->name,
             "clotheTypes": clotheTypes[]->name,
             "clotheSizes": clotheSizes[]->name,

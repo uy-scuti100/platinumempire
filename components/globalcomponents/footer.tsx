@@ -21,9 +21,9 @@ export default function Footer() {
 					<Input
 						type="email"
 						placeholder="Your email address"
-						className="flex-grow text-center rounded-none h-[50px]"
+						className="flex-grow text-center rounded-none  h-[50px]"
 					/>
-					<button className="rounded-none btn btn-accent min-w-[150px] text-white whitespace-nowrap">
+					<button className="rounded-none  btn btn-accent min-w-[150px] text-white whitespace-nowrap">
 						Join
 					</button>
 				</form>

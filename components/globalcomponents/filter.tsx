@@ -171,7 +171,7 @@
 // 														style={{
 // 															background: `${color.value}`,
 // 														}}
-// 														className="rounded-full h-8 w-8 border"
+// 														className="rounded-none-full h-8 w-8 border"
 // 													></div>
 // 												</label>
 // 											</div>

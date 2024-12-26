@@ -121,7 +121,7 @@ function CheckoutButton({ onClose }: { onClose?: () => void }) {
 	return (
 		<Link
 			href={"/checkout"}
-			className="block w-full p-3 text-sm font-medium text-center text-white bg-blue-600 rounded-none opacity-90 hover:opacity-100"
+			className="block w-full p-3 text-sm font-medium text-center text-white bg-blue-600 rounded-none  opacity-90 hover:opacity-100"
 			onClick={onClose}
 		>
 			{pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}

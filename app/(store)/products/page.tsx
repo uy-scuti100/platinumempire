@@ -97,17 +97,41 @@ export default async function Page({
 	}
 
 	// Handle size filters
+	// const handleSizeFilter = (sizes: string | undefined, type: string) => {
+	// 	if (sizes && typeof sizes === "string") {
+	// 		const sizesArray = sizes.split(",");
+	// 		const sizeConditions = sizesArray.map(
+	// 			(size) =>
+	// 				`count(${type}[_type == "reference" && references(*[_type == "${type.slice(0, -1)}" && name == "${size}"]._id)]) > 0`
+	// 		);
+	// 		filterConditions.push(`(${sizeConditions.join(" || ")})`);
+	// 	}
+	// };
 	const handleSizeFilter = (sizes: string | undefined, type: string) => {
-		if (sizes && typeof sizes === "string") {
-			const sizesArray = sizes.split(",");
+		if (!sizes || typeof sizes !== "string") return;
+
+		const sizesArray = sizes.split(",");
+
+		if (type === "shoeSizes") {
+			// Handle shoe sizes as direct number array
+			const sizeConditions = sizesArray.map(
+				(size) => `count(${type}[@ == ${size}]) > 0`
+			);
+			filterConditions.push(`(${sizeConditions.join(" || ")})`);
+		} else {
+			// Handle other sizes as references
 			const sizeConditions = sizesArray.map(
 				(size) =>
-					`count(${type}[_type == "reference" && references(*[_type == "${type.slice(0, -1)}" && name == "${size}"]._id)]) > 0`
+					`count(${type}[_type == "reference" && references(*[_type == "${type.slice(
+						0,
+						-1
+					)}" && name == "${size}"]._id)]) > 0`
 			);
 			filterConditions.push(`(${sizeConditions.join(" || ")})`);
 		}
 	};
 
+	// Usage remains the same
 	handleSizeFilter(clotheSizes, "clotheSizes");
 	handleSizeFilter(shoeSizes, "shoeSizes");
 	handleSizeFilter(bagSizes, "bagSizes");
@@ -120,6 +144,7 @@ export default async function Page({
 		: "";
 
 	const finalQuery = filter + order;
+	console.log(finalQuery);
 
 	const PRODUCTS_PER_PAGE = 4; // Define the same limit as in GridContainer
 	const start = 0; // Start with the first page

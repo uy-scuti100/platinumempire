@@ -29,7 +29,7 @@ export default function CategoryCard({ info }: { info: InfoProp }) {
 			<div className="group-hover:opacity-0 duration-300 transition-opacity ease-in-out absolute inset-0 bg-black/30 flex justify-start items-end bg-blend-darken">
 				{/* <div className="text-white text-2xl font-bold text-center  transition-opacity ease-in-out "> */}
 
-				<div className=" flex items-center m-2 px-2 py-1 md:text-2xl text-lg font-semibold text-black border rounded-none bg-white/70 backdrop-blur-md">
+				<div className=" flex items-center m-2 px-2 py-1 md:text-2xl text-lg font-semibold text-black border rounded-none  bg-white/70 backdrop-blur-md">
 					{text}
 				</div>
 			</div>

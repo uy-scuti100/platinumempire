@@ -46,7 +46,7 @@ export default function UpsellProducts({ cart }: { cart: Cart }) {
 							<ProductCard product={product} />
 							<Link
 								href={`/product/${product.slug}`}
-								className="h-[50px] w-full whitespace-nowrap shop-now-btn btn rounded-none"
+								className="h-[50px] w-full whitespace-nowrap shop-now-btn btn rounded"
 							>
 								View Product
 							</Link>
@@ -54,7 +54,7 @@ export default function UpsellProducts({ cart }: { cart: Cart }) {
 					))
 				) : (
 					<div className=" flex items-center justify-center px-4 w-full col-span-2 mt-10 ">
-						<Button asChild className="rounded-none shop-now-btn btn px-4">
+						<Button asChild className="rounded shop-now-btn btn px-4">
 							<Link href={"/products"}>Browse other trendy Products</Link>
 						</Button>
 					</div>

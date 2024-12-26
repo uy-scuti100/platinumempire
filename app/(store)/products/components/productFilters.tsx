@@ -31,7 +31,7 @@ import {
 import { useFetchTypes } from "@/hooks/queries";
 export interface FilterOption {
 	label: string;
-	value: string;
+	value: string | number; // Allow both string and number values
 	count?: number;
 }
 
@@ -41,6 +41,7 @@ export interface CategoryOption extends FilterOption {
 
 export interface SizeOption extends FilterOption {
 	count: number;
+	value: number; // Change here: now using a number for size values
 }
 
 export interface FilterState {
@@ -53,7 +54,7 @@ export interface FilterState {
 	accessorySizes: string[];
 
 	clotheSizes: string[];
-	shoeSizes: string[];
+	shoeSizes: number[]; // Change here: now an array of numbers
 	bagSizes: string[];
 	sortBy: string;
 	priceRange?: [number, number];
@@ -64,15 +65,10 @@ export function ProductFilter() {
 	const searchParams = useSearchParams();
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 	const [isMobile, setIsMobile] = useState(false);
-	const {
-		accessorySize,
-		clotheTypes,
-		categories,
-		shoeSizes,
-		bagSizes,
-		clotheSizes,
-	} = useFetchTypes();
+	const { accessorySize, clotheTypes, categories, bagSizes, clotheSizes } =
+		useFetchTypes();
 
+	const shoeSizes = [37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48];
 	useEffect(() => {
 		const handleResize = () => setIsMobile(window.innerWidth < 768);
 		handleResize();
@@ -90,7 +86,7 @@ export function ProductFilter() {
 			clotheTypes: searchParams.get("clotheTypes")?.split(",") || [],
 			accessorySizes: searchParams.get("accessorySizes")?.split(",") || [],
 			clotheSizes: searchParams.get("clotheSizes")?.split(",") || [],
-			shoeSizes: searchParams.get("shoeSizes")?.split(",") || [],
+			shoeSizes: searchParams.get("shoeSizes")?.split(",").map(Number) || [],
 			bagSizes: searchParams.get("bagSizes")?.split(",") || [],
 			sortBy: searchParams.get("sortBy") || "",
 			priceRange: searchParams.get("priceRange")
@@ -127,6 +123,7 @@ export function ProductFilter() {
 			if (newFilters.clotheSizes.length) {
 				params.set("clotheSizes", newFilters.clotheSizes.join(","));
 			}
+			// Ensure shoeSizes are updated as a comma-separated list of numbers
 			if (newFilters.shoeSizes.length) {
 				params.set("shoeSizes", newFilters.shoeSizes.join(","));
 			}
@@ -254,7 +251,7 @@ export function ProductFilter() {
 							Clear All
 						</Button>
 						<Button
-							className="flex-1 py-7 rounded-none text-base tracking-wide font-light"
+							className="flex-1 py-7 rounded-none  text-base tracking-wide font-light"
 							onClick={handleApplyFilters}
 						>
 							Apply Filters
@@ -271,7 +268,7 @@ interface FilterProps {
 	isOpen: boolean;
 	onCloseAction: () => void;
 	bagSizes: string[];
-	shoeSizes: string[];
+	shoeSizes: number[];
 	clotheSizes: string[];
 	clotheTypes: string[];
 	gender: string;
@@ -318,7 +315,7 @@ const ProductContent = ({
 	return (
 		<>
 			<div className="flex flex-col gap-4 pt-4">
-				<ScrollArea className="h-[calc(100vh-9rem)] pr-4">
+				<ScrollArea className="h-[calc(100vh-12rem)] pr-4">
 					<div className="space-y-6">
 						<div className="space-y-4 border-b pb-3">
 							<h4 className="font-medium">Sort By</h4>
@@ -534,7 +531,7 @@ const ProductContent = ({
 												<Button
 													key={size}
 													variant={
-														localFilters.bagSizes.includes(size)
+														localFilters.shoeSizes.includes(size)
 															? "default"
 															: "outline"
 													}
@@ -542,11 +539,11 @@ const ProductContent = ({
 													onClick={() => {
 														handleFilterChange({
 															...localFilters,
-															bagSizes: localFilters.bagSizes.includes(size)
-																? localFilters.bagSizes.filter(
-																		(s: string) => s !== size
+															shoeSizes: localFilters.shoeSizes.includes(size)
+																? localFilters.shoeSizes.filter(
+																		(s: number) => s !== size
 																	)
-																: [...localFilters.bagSizes, size],
+																: [...localFilters.shoeSizes, size],
 														});
 													}}
 												>
@@ -631,13 +628,13 @@ const ProductContent = ({
 				<div className="flex gap-2 max-w-md mx-auto">
 					<Button
 						variant="outline"
-						className="flex-1 rounded-none text-base py-5 font-light border-zinc-800 tracking-wide "
+						className="flex-1 rounded-none  text-base py-5 font-light border-zinc-800 tracking-wide "
 						onClick={onClearFiltersAction}
 					>
 						Clear All
 					</Button>
 					<Button
-						className="flex-1 py-5 rounded-none text-base tracking-wide font-light"
+						className="flex-1 py-5 rounded-none  text-base tracking-wide font-light"
 						onClick={onApplyFiltersAction}
 					>
 						Apply Filters

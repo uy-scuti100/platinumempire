@@ -301,7 +301,7 @@ export function CheckoutForm() {
 					<div>
 						<Label htmlFor="firstName">First Name</Label>
 						<Input
-							className="rounded-none"
+							className="rounded"
 							id="firstName"
 							{...register("firstName")}
 						/>
@@ -314,7 +314,7 @@ export function CheckoutForm() {
 					<div>
 						<Label htmlFor="lastName">Last Name</Label>
 						<Input
-							className="rounded-none"
+							className="rounded"
 							id="lastName"
 							{...register("lastName")}
 						/>
@@ -329,7 +329,7 @@ export function CheckoutForm() {
 				<div>
 					<Label htmlFor="email">Email</Label>
 					<Input
-						className="rounded-none"
+						className="rounded"
 						id="email"
 						type="email"
 						{...register("email")}
@@ -342,7 +342,7 @@ export function CheckoutForm() {
 				<div>
 					<Label htmlFor="phoneNumber">Phone Number</Label>
 					<Input
-						className="rounded-none"
+						className="rounded"
 						id="phoneNumber"
 						type="tel"
 						{...register("phoneNumber")}
@@ -400,7 +400,7 @@ export function CheckoutForm() {
 								onValueChange={(value) => setValue("country", value)}
 								value={selectedCountry}
 							>
-								<SelectTrigger className="w-full rounded-none">
+								<SelectTrigger className="w-full rounded">
 									<SelectValue placeholder="Select Country" />
 								</SelectTrigger>
 								<SelectContent>
@@ -427,7 +427,7 @@ export function CheckoutForm() {
 									onValueChange={(value) => setValue("state", value)}
 									value={selectedState || undefined}
 								>
-									<SelectTrigger className="w-full rounded-none">
+									<SelectTrigger className="w-full rounded">
 										<SelectValue placeholder="Select State" />
 									</SelectTrigger>
 									<SelectContent>
@@ -451,7 +451,7 @@ export function CheckoutForm() {
 						<div>
 							<Label htmlFor="address">Address</Label>
 							<Input
-								className="rounded-none"
+								className="rounded"
 								id="address"
 								{...register("address")}
 							/>
@@ -467,7 +467,7 @@ export function CheckoutForm() {
 								Apartment, suite, etc. (optional)
 							</Label>
 							<Input
-								className="rounded-none"
+								className="rounded"
 								id="apartment"
 								{...register("apartment")}
 							/>
@@ -476,11 +476,7 @@ export function CheckoutForm() {
 						<div className="grid grid-cols-2 gap-4">
 							<div>
 								<Label htmlFor="city">City</Label>
-								<Input
-									className="rounded-none"
-									id="city"
-									{...register("city")}
-								/>
+								<Input className="rounded" id="city" {...register("city")} />
 
 								{(errors as any).city && (
 									<p className="text-red-500 text-sm mt-1">
@@ -491,7 +487,7 @@ export function CheckoutForm() {
 							<div>
 								<Label htmlFor="postalCode">Postal Code (optional)</Label>
 								<Input
-									className="rounded-none"
+									className="rounded"
 									id="postalCode"
 									{...register("postalCode")}
 								/>
@@ -534,7 +530,7 @@ export function CheckoutForm() {
 
 				<Button
 					type="submit"
-					className="w-full h-[50px] show-now-btn btn rounded-none font-black"
+					className="w-full h-[50px] show-now-btn btn rounded font-black"
 				>
 					Pay Now
 				</Button>

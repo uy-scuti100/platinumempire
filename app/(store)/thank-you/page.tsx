@@ -217,7 +217,7 @@ function OrderDetails() {
 								variant="outline"
 								disabled={downloadPdf}
 								onClick={handleDownload}
-								className="flex items-center text-base disabled:opacity-50 disabled:cursor-not-allowed shop-now-btn btn hover:text-white btn hover:bg-[#4e50de] bg-[#4043E7] rounded-none "
+								className="flex items-center text-base disabled:opacity-50 disabled:cursor-not-allowed shop-now-btn btn hover:text-white btn hover:bg-[#4e50de] bg-[#4043E7] rounded-none  "
 							>
 								{downloadPdf ? (
 									"Downloading..."
@@ -232,7 +232,7 @@ function OrderDetails() {
 								variant="outline"
 								onClick={handleShare}
 								disabled={downloadPdf}
-								className="flex items-center disabled:opacity-50 disabled:cursor-not-allowed shop-now-btn btn bg-custom hover:bg-custom-hover rounded-none hover:text-white text-base"
+								className="flex items-center disabled:opacity-50 disabled:cursor-not-allowed shop-now-btn btn bg-custom hover:bg-custom-hover rounded-none  hover:text-white text-base"
 							>
 								<Share2 className="h-4 w-4 mr-2" />
 								Share
@@ -240,7 +240,7 @@ function OrderDetails() {
 						</div>
 						<div className="mt-8 text-center">
 							<Link href="/">
-								<Button className="shop-now-btn rounded-none text-base">
+								<Button className="shop-now-btn rounded-none  text-base">
 									Continue Shopping 🛍️
 								</Button>
 							</Link>

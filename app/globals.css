@@ -102,6 +102,22 @@
 		-webkit-transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 		transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	}
+	.button-slant-line-through {
+		position: relative; /* Required for pseudo-element positioning */
+	}
+
+	.button-slant-line-through::after {
+		content: "";
+		position: absolute;
+		top: 50%; /* Start from the center */
+		left: -10%; /* Slightly offset to ensure coverage */
+		width: 120%; /* Extend width to cover the button fully at an angle */
+		height: 1px; /* Adjust thickness of the line */
+		background-color: currentColor; /* Matches the text color */
+		transform: translateY(-50%) rotate(-20deg); /* Slant the line */
+		transform-origin: center; /* Rotate from the center */
+		pointer-events: none; /* Ensure it doesn’t block clicks */
+	}
 }
 
 @layer utilities {
