@@ -37,7 +37,7 @@ export const useDiscountedPrice = (
 
 export const siteConfig = {
 	name: "Platinum Fashion Hub",
-	url: "https://mozack.vercel.app",
+	url: "https://platinumempire.vercel.app/",
 	ogImage:
 		"https://res.cloudinary.com/dsfhfgn4y/image/upload/v1735208754/opengraph-image_dcwmcc.png",
 

@@ -3,7 +3,7 @@ import Navbar from "@/components/globalcomponents/navbar";
 import TopLoader from "@/components/globalcomponents/top-loader";
 import { siteConfig } from "@/lib/utils";
 import Providers from "@/providers/react-query";
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 const geistSans = Geist({
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 	subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: {
 		default: siteConfig.name,
 		template: `%s - ${siteConfig.name}`,
