@@ -117,17 +117,41 @@ export const productSchema = defineType({
 					(category) => category._ref === "e4728c52-0c2c-4a0f-b9c8-41621c9c4ef6"
 				);
 			},
+			// validation: (Rule) =>
+			// 	Rule.custom((values) => {
+			// 		if (!values || values.length === 0) {
+			// 			return "At least one shoe size must be selected.";
+			// 		}
+			// 		if (
+			// 			values.some(
+			// 				(size) => typeof size !== "number" || size < 37 || size > 48
+			// 			)
+			// 		) {
+			// 			return "Shoe sizes must be between 37 and 48.";
+			// 		}
+			// 		return true;
+			// 	}),
 			validation: (Rule) =>
-				Rule.custom((values) => {
-					if (!values || values.length === 0) {
-						return "At least one shoe size must be selected.";
-					}
-					if (
-						values.some(
-							(size) => typeof size !== "number" || size < 37 || size > 48
-						)
-					) {
-						return "Shoe sizes must be between 37 and 48.";
+				Rule.custom((values, context) => {
+					const categories = context.document?.categories as
+						| CategoryReference[]
+						| undefined;
+					const isShoeCategory = categories?.some(
+						(category) =>
+							category._ref === "e4728c52-0c2c-4a0f-b9c8-41621c9c4ef6"
+					);
+
+					if (isShoeCategory) {
+						if (!values || values.length === 0) {
+							return "At least one shoe size must be selected.";
+						}
+						if (
+							values.some(
+								(size) => typeof size !== "number" || size < 37 || size > 48
+							)
+						) {
+							return "Shoe sizes must be between 37 and 48.";
+						}
 					}
 					return true;
 				}),
