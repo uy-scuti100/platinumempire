@@ -39,7 +39,7 @@ export const siteConfig = {
 	name: "Platinum Fashion Hub",
 	url: "https://mozack.vercel.app",
 	ogImage:
-		"https://i.pinimg.com/736x/9e/4a/8c/9e4a8c3df22bba32f180d5c6c880c0bd.jpg",
+		"https://res.cloudinary.com/dsfhfgn4y/image/upload/v1735208754/opengraph-image_dcwmcc.png",
 
 	description:
 		"Discover unparalleled style at Platinum Fashion Hub, your go-to destination for cutting-edge fashion trends and timeless classics. Immerse yourself in a world where elegance meets innovation. Explore our curated collections and redefine your wardrobe with the latest must-haves. Elevate your fashion journey with Platinum Fashion Hub – where every click unveils a new dimension of style. Your fashion, your statement. #FashionForward #PlatinumStyle",

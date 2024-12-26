@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
 import { Input } from "../ui/input";
 import { FooterModals } from "./footer-modals";
 
@@ -34,22 +34,36 @@ export default function Footer() {
 				{/* social buttons */}
 				<div className="flex justify-center gap-6 mb-10 text-xl">
 					<Link
-						href="#"
+						href="https://www.instagram.com/platinumcrochet1?igsh=cnhmMmw0YnhjaWww&utm_source=qr"
+						target="_blank"
+						rel="noopener noreferrer"
 						className="transition-colors text-primary hover:text-primary/80"
 					>
 						<FaInstagram />
 					</Link>
 					<Link
-						href="#"
+						href="https://www.facebook.com/share/17xcAw6rWG/?mibextid=wwXIfr"
+						target="_blank"
+						rel="noopener noreferrer"
 						className="transition-colors text-primary hover:text-primary/80"
 					>
 						<FaFacebook />
 					</Link>
 					<Link
-						href="#"
+						href="https://www.tiktok.com/@platinums.empire?_t=ZM-8sXHv2w5qwo&_r=1"
+						target="_blank"
+						rel="noopener noreferrer"
 						className="transition-colors text-primary hover:text-primary/80"
 					>
 						<FaTiktok />
+					</Link>
+					<Link
+						href="https://wa.me/08148439316"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="transition-colors text-primary hover:text-primary/80"
+					>
+						<FaWhatsapp />
 					</Link>
 				</div>
 			</div>
