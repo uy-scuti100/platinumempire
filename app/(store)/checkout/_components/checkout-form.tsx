@@ -141,6 +141,61 @@ export function CheckoutForm() {
 		email: watch("email"),
 		amount: totalAmount * 100,
 		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEST_PUBLIC_KEY || "",
+		metadata: {
+			cart: cart,
+			totalAmount: totalAmount,
+			shippingFee: shippingFee,
+			deliveryMethod: deliveryMethod,
+			address: watch("address"),
+			apartment: watch("apartment"),
+			city: watch("city"),
+			country: watch("country"),
+			state: watch("state"),
+			postalCode: watch("postalCode"),
+			custom_fields: [
+				{
+					display_name: "Customer Name",
+					variable_name: "customer_name",
+
+					value: `${watch("firstName")} ${watch("lastName")}`,
+				},
+				{
+					display_name: "Customer Email",
+					variable_name: "customer_email",
+					value: watch("email"),
+				},
+				{
+					display_name: "Customer Phone Number",
+					variable_name: "customer_phone",
+					value: watch("phoneNumber"),
+				},
+				{
+					display_name: "Customer Address",
+					variable_name: "customer_address",
+					value: watch("address"),
+				},
+				{
+					display_name: "Customer Apartment",
+					variable_name: "customer_apartment",
+					value: watch("apartment"),
+				},
+				{
+					display_name: "Customer City",
+					variable_name: "customer_city",
+					value: watch("city"),
+				},
+				{
+					display_name: "Customer Country",
+					variable_name: "customer_country",
+					value: watch("country"),
+				},
+				{
+					display_name: "Customer State",
+					variable_name: "customer_state",
+					value: watch("state"),
+				},
+			],
+		},
 	});
 
 	// Form submission handler
