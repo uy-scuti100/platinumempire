@@ -215,30 +215,35 @@ function OrderDetails() {
 						<div className="flex gap-2 print:hidden">
 							<Button
 								variant="outline"
-								size="sm"
 								disabled={downloadPdf}
 								onClick={handleDownload}
-								className="flex items-center disabled:opacity-50 cursor-not-allowed"
+								className="flex items-center text-base disabled:opacity-50 disabled:cursor-not-allowed shop-now-btn btn hover:text-white btn hover:bg-[#4e50de] bg-[#4043E7] rounded-none "
 							>
 								{downloadPdf ? (
 									"Downloading..."
 								) : (
 									<>
 										<Download className="h-4 w-4 mr-2" />{" "}
-										<span> Download PDF</span>
+										<span> Download Receipt</span>
 									</>
 								)}
 							</Button>
 							<Button
 								variant="outline"
-								size="sm"
 								onClick={handleShare}
 								disabled={downloadPdf}
-								className="flex items-center disabled:opacity-50 cursor-not-allowed"
+								className="flex items-center disabled:opacity-50 disabled:cursor-not-allowed shop-now-btn btn bg-custom hover:bg-custom-hover rounded-none hover:text-white text-base"
 							>
 								<Share2 className="h-4 w-4 mr-2" />
 								Share
 							</Button>
+						</div>
+						<div className="mt-8 text-center">
+							<Link href="/">
+								<Button className="shop-now-btn rounded-none text-base">
+									Continue Shopping 🛍️
+								</Button>
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -262,11 +267,6 @@ export default function ThankYouPage() {
 						</p>
 					</div>
 					<OrderDetails />
-					<div className="mt-8 text-center">
-						<Link href="/">
-							<Button>Continue Shopping</Button>
-						</Link>
-					</div>
 				</main>
 			</div>
 		</Suspense>

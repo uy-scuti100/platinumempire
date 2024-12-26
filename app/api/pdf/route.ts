@@ -22,10 +22,7 @@ export async function POST(request: NextRequest) {
 		// Wait longer for images to load
 		await page.setDefaultNavigationTimeout(60000);
 
-		const url =
-			process.env.NODE_ENV === "development"
-				? `http://localhost:3000/thank-you?data=${encodeURIComponent(JSON.stringify(orderData))}`
-				: `https://platinumempire.vercel.app/thank-you?data=${encodeURIComponent(JSON.stringify(orderData))}`;
+		const url = `https://platinumempire.vercel.app/thank-you?data=${encodeURIComponent(JSON.stringify(orderData))}`;
 
 		// Navigate and wait for network to be idle
 		await page.goto(url, {

@@ -59,10 +59,10 @@ const modalContents: Record<string, ModalContent> = {
 				<p>
 					<strong>Delivery Timelines:</strong>
 				</p>
-				<ul className="list-disc list-inside">
-					<li>Within Lagos: 3 working days</li>
-					<li>Outside Lagos: 3-7 working days</li>
-				</ul>
+				<menu className="list-disc list-inside">
+					<li>Within Ilorin: 3 working days</li>
+					<li>Outside Ilorin: 3-7 working days</li>
+				</menu>
 				<p>
 					<strong>Pick-Up Option:</strong> Prefer to pick up your order? You can
 					collect it immediately during our working hours: 9 AM - 6 PM, Monday

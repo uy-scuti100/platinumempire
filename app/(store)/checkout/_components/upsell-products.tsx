@@ -1,6 +1,7 @@
 "use client";
 import { fetchUpsellProducts, IProduct } from "@/actions/products";
 import ProductCard from "@/components/globalcomponents/ProductCard";
+import { Button } from "@/components/ui/button";
 import { useStore } from "@/lib/store/cart";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -52,7 +53,11 @@ export default function UpsellProducts({ cart }: { cart: Cart }) {
 						</div>
 					))
 				) : (
-					<p>No upsell products available at the moment.</p>
+					<div className=" flex items-center justify-center px-4 w-full col-span-2 mt-10 ">
+						<Button asChild className="rounded-none shop-now-btn btn px-4">
+							<Link href={"/products"}>Browse other trendy Products</Link>
+						</Button>
+					</div>
 				)}
 			</div>
 		</div>

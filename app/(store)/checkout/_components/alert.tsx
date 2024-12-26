@@ -12,36 +12,18 @@ export function CheckoutWarning() {
 				Important Shipping Information
 			</AlertTitle>
 			<AlertDescription className="text-yellow-700">
-				Shipping fees displayed are estimates and may be adjusted based on final
-				exchange rates and package weight.
+				<div>
+					Shipping fees are estimates and may change slightly based on the
+					package weight or currency exchange rates.
+				</div>
+				<div>
+					<div className="font-bold py-2 uppercase">Delivery Timelines:</div>
+					<menu>
+						<li className="list-disc">Within Ilorin: 3 working days.</li>
+						<li className="list-disc">Outside Ilorin: 3-7 working days.</li>
+					</menu>
+				</div>
 			</AlertDescription>
 		</Alert>
 	);
-}
-
-{
-	/* <p className="mb-2">
-					Please be aware that your final shipping fee may vary due to the
-					following factors:
-				</p>
-				<ul className="list-disc list-inside space-y-1">
-					<li>
-						<span className="font-semibold">Exchange Rate:</span> The fee might
-						change based on the
-						<span className="font-semibold">
-							{" "}
-							exchange rate at the time of purchase
-						</span>
-						.
-					</li>
-					<li>
-						<span className="font-semibold">Package Weight:</span> The shipping
-						cost may be adjusted according to the
-						<span className="font-semibold"> total weight of items</span> in
-						your cart.
-					</li>
-				</ul>
-				<p className="mt-2 font-medium">
-					We'll calculate the final shipping cost before processing your order.
-				</p> */
 }
