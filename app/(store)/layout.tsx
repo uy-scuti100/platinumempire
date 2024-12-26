@@ -3,8 +3,10 @@ import Navbar from "@/components/globalcomponents/navbar";
 import TopLoader from "@/components/globalcomponents/top-loader";
 import { siteConfig } from "@/lib/utils";
 import Providers from "@/providers/react-query";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "../globals.css";
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -25,7 +27,31 @@ export const metadata: Metadata = {
 	metadataBase: new URL(siteConfig.url),
 	description: siteConfig.description,
 	keywords: [
-		"fashion, clothing, style, trends, fashion hub, fashion store, fashion website, fashion blog",
+		"fashion",
+		"clothing",
+		"accessories",
+		"shoes",
+		"bags",
+		"style",
+		"fashion trends",
+		"fashion hub",
+		"fashion store",
+		"fashion website",
+		"online shopping",
+		"modern fashion",
+		"elegant style",
+		"wardrobe essentials",
+		"designer bags",
+		"trendy shoes",
+		"fashion blog",
+		"platinum fashion hub",
+		"fashion website",
+		"online shopping",
+		"modern fashion",
+		"elegant style",
+		"wardrobe essentials",
+		"designer bags",
+		"trendy shoes",
 	],
 	authors: [
 		{
@@ -81,6 +107,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
+				<Analytics />
 				<TopLoader />
 
 				<Providers>

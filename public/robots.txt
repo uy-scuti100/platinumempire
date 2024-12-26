@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://platinumempire.vercel.app
+
+# Sitemaps
+Sitemap: https://platinumempire.vercel.app/sitemap.xml

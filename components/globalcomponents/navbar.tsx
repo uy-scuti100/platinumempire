@@ -87,7 +87,7 @@ export default function Navbar() {
 			>
 				<p>
 					FREE DELIVERY AVAILABLE ON ORDERS above{" "}
-					<span className="font-black"> #150,000</span> withihin Nigeria.
+					<span className="font-black"> #150,000</span> within Nigeria.
 				</p>
 			</motion.div>
 			<div

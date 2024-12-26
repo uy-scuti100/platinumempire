@@ -40,9 +40,8 @@ export const siteConfig = {
 	url: "https://platinumempire.vercel.app/",
 	ogImage:
 		"https://res.cloudinary.com/dsfhfgn4y/image/upload/v1735208754/opengraph-image_dcwmcc.png",
-
 	description:
-		"Discover unparalleled style at Platinum Fashion Hub, your go-to destination for cutting-edge fashion trends and timeless classics. Immerse yourself in a world where elegance meets innovation. Explore our curated collections and redefine your wardrobe with the latest must-haves. Elevate your fashion journey with Platinum Fashion Hub – where every click unveils a new dimension of style. Your fashion, your statement. #FashionForward #PlatinumStyle",
+		"Platinum Fashion Hub is your destination for the latest fashion trends and timeless styles. Discover curated collections that elevate your wardrobe and make every outfit a statement. Explore, shop, and define your style with Platinum Fashion Hub. #FashionForward #PlatinumStyle",
 	links: {
 		twitter: "https://twitter.com/hussain_joe",
 		github: "https://github.com/uy-scuti100",
