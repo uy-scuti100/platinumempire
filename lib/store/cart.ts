@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 // Cart Product Interface
 export interface ICartProduct {
@@ -41,6 +41,8 @@ interface CartState {
 	toggleCart: () => void; // Toggle the cart tray
 	openCart: () => void; // Open the cart tray
 	closeCart: () => void; // Close the cart tray
+
+	getCart: () => ICartProduct[];
 }
 
 // Initial State
@@ -172,7 +174,7 @@ export const useStore = create<CartState>()(
 			getTotalItems: () => {
 				return get().cart.reduce((total, item) => total + item.quantity, 0);
 			},
-
+			getCart: () => get().cart,
 			// Toggle the cart tray visibility
 			toggleCart: () =>
 				set((state) => ({

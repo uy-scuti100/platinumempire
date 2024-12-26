@@ -1,7 +1,7 @@
 "use client";
 
+import { IProduct } from "@/actions/products";
 import { useState } from "react";
-import { IProduct } from "@/actions";
 
 import {
 	DoubleView,
@@ -11,18 +11,20 @@ import {
 } from "@/providers/Icons/ViewButtons";
 
 import ProductCard from "@/components/globalcomponents/ProductCard";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ProductFilter } from "./productFilters";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
+import { ProductFilter } from "./productFilters";
 
 interface ProductGridProps {
+	productCount: number;
 	products: IProduct[] | undefined;
 	isLoading: boolean;
 	isError: boolean;
 }
 
 export default function ProductGrid({
+	productCount,
 	products,
 	isError,
 	isLoading,
@@ -39,8 +41,8 @@ export default function ProductGrid({
 				<div className="sticky md:top-[116px] top-[100px] z-50 bg-white flex justify-between items-center py-4 my-10 border-b">
 					<MobileControls setView={setView} view={view} />
 					<div className="text-sm">
-						{products?.length ?? 0} product
-						{(products?.length ?? 0) > 1 ? "s" : ""}
+						<span className="font-semibold">{productCount ?? 0}</span> product
+						{(productCount ?? 0) > 1 ? "s" : ""} found
 					</div>
 					<div>
 						<ProductFilter />
@@ -48,8 +50,8 @@ export default function ProductGrid({
 				</div>
 
 				{isLoading && (
-					<div className="grid gap-1 grid-cols-2 max-w-5xl mx-auto">
-						{Array(10)
+					<div className="grid max-w-5xl grid-cols-2 gap-1 mx-auto">
+						{Array(4)
 							.fill(0)
 							.map((_, i) => (
 								<ProductCardSkeleton key={i} />
@@ -74,13 +76,13 @@ export default function ProductGrid({
 						})}
 					</div>
 				) : (
-					<div className="flex justify-start items-center flex-col mt-20 gap-10 min-h-screen">
-						<h3 className="text-center text-xl font-light">
+					<div className="flex flex-col items-center justify-start min-h-screen gap-10 mt-20">
+						<h3 className="text-xl font-light text-center">
 							No products found for this category{" "}
 						</h3>
 
 						<div>
-							<Button asChild className="shop-now-btn">
+							<Button asChild className="rounded-none shop-now-btn btn">
 								<Link href={"/products"}>Browse other trendy Products</Link>
 							</Button>
 						</div>
@@ -99,7 +101,7 @@ const MobileControls = ({
 }) => {
 	return (
 		<>
-			<div className="flex justify-between items-center ">
+			<div className="flex items-center justify-between ">
 				<div className="flex space-x-4">
 					<DoubleView setView={() => setView("double")} view={view} />
 					<SingleView setView={() => setView("single")} view={view} />
@@ -113,7 +115,7 @@ const MobileControls = ({
 	);
 };
 
-const ProductCardSkeleton = () => (
+export const ProductCardSkeleton = () => (
 	<div className="flex flex-col gap-2">
 		<Skeleton className="w-full md:h-[300px] h-[250px] relative overflow-hidden rounded-none"></Skeleton>
 		<div className="flex flex-col gap-1">

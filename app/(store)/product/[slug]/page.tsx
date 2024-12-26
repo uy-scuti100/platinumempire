@@ -1,27 +1,41 @@
+import { fetchProductBySlug, IProduct } from "@/actions/products";
 import {
+	dehydrate,
 	HydrationBoundary,
 	QueryClient,
-	dehydrate,
 } from "@tanstack/react-query";
-import ProductComponent from "../components/product-component";
-import { fetchProductBySlug } from "@/actions";
+import AdditionalImages from "../_components/additional-images";
+import ProductComponent from "../_components/product-component";
+import RelatedProductsComponent from "../_components/relatedGoods";
+
 export type paramsType = Promise<{ slug: string }>;
 export default async function page({ params }: { params: paramsType }) {
 	const { slug } = await params;
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: ["singleproduct", slug],
+		queryKey: ["SINGLE_PRODUCT", slug],
+		queryFn: () => fetchProductBySlug(slug),
+	});
+	const product = await queryClient.fetchQuery({
+		queryKey: ["SINGLE_PRODUCT", slug],
 		queryFn: () => fetchProductBySlug(slug),
 	});
 
 	return (
-		<main className="pb-40 pt-28">
+		<main className="pt-28">
 			<div className="mt-10">
 				<HydrationBoundary state={dehydrate(queryClient)}>
 					<ProductComponent slug={slug} />
+					<RelatedProductsComponent slug={slug} product={product as IProduct} />
+
+					<AdditionalImages imageUrls={product?.imageUrls as string[]} />
 				</HydrationBoundary>
 			</div>
 		</main>
 	);
 }
+// slug={product.slug}
+// 					type={productType || []}
+// 					categories={product.categories}
+// 					price={product.price}

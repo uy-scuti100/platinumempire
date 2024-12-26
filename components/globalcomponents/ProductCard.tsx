@@ -1,9 +1,8 @@
-import { IProduct } from "@/actions";
+import { IProduct } from "@/actions/products";
 import { formatPriceInNaira } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export default function ProductCard({ product }: { product: IProduct }) {
 	const {
@@ -18,11 +17,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
 	} = product;
 
 	return (
-		<Link
-			href={{ pathname: `/product/${slug}` }}
-			scroll={true}
-			onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-		>
+		<Link href={`/product/${slug}`}>
 			<div>
 				<div className="relative overflow-hidden group">
 					{imageUrls && imageUrls.length > 0 && (
@@ -31,6 +26,8 @@ export default function ProductCard({ product }: { product: IProduct }) {
 								src={urlFor(imageUrls[0]).url()}
 								alt={`${name}-image`}
 								fill
+								loading="lazy"
+								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 								className="object-cover w-full h-full"
 								placeholder="blur"
 								blurDataURL={lqips[0]}
@@ -43,6 +40,8 @@ export default function ProductCard({ product }: { product: IProduct }) {
 										alt={`${name}-image`}
 										width={500}
 										height={500}
+										sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1060px) 75vw, 60vw"
+										loading="lazy"
 										className="object-cover w-full h-full"
 									/>
 								</div>
@@ -59,28 +58,32 @@ export default function ProductCard({ product }: { product: IProduct }) {
 					)}
 				</div>
 			</div>
-			<h6 className="text-[#808080] text-xs mt-5 capitalize">{name}</h6>
-			<h6 className="text-[#1c1c1c] text-sm font-semibold mt-3 md:block">
-				{onSale ? (
-					<div className="flex items-center justify-between w-full text-xs ">
-						<div>
-							<span className="text-[#808080] text-xs line-through mr-2">
-								{formatPriceInNaira(Number(discountedPrice))}
-							</span>
-							<span className="text-[#1c1c1c] text-xs">
-								{formatPriceInNaira(Number(price))}
-							</span>
+			<div className="mt-3">
+				<h6 className="text-slate-700 text-xs capitalize font-medium line-clamp-1">
+					{name}
+				</h6>
+				<h6 className="text-[#1c1c1c] text-sm font-semibold  mt-2md:block">
+					{onSale ? (
+						<div className="">
+							<div>
+								<span className="text-[#808080] text-xs line-through mr-2">
+									{formatPriceInNaira(Number(price))}
+								</span>
+								<span className="text-[#1c1c1c] text-xs ">
+									{formatPriceInNaira(Number(discountedPrice))}
+								</span>
+							</div>
 						</div>
-						<span className="rounded-full self-end text-[#D7373D] text-[10px]">
-							On Sale
+					) : (
+						<span className="text-[#1c1c1c] text-xs">
+							{formatPriceInNaira(Number(price))}
 						</span>
-					</div>
-				) : (
-					<span className="text-[#1c1c1c] text-xs">
-						{formatPriceInNaira(Number(price))}
-					</span>
+					)}
+				</h6>
+				{onSale && (
+					<span className="text-[#D7373D] text-[10px] font-bold">On Sale</span>
 				)}
-			</h6>
+			</div>
 		</Link>
 	);
 }

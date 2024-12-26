@@ -1,12 +1,12 @@
-import { fetchTwoFromEachCategory } from "@/actions";
-import Categories from "../(homeComponents)/Categories";
-import HeroSection from "../(homeComponents)/heroSection";
-import TwoFromEach from "../(homeComponents)/twofromeach";
+import { fetchTwoFromEachCategory } from "@/actions/products";
 import {
 	dehydrate,
 	HydrationBoundary,
 	QueryClient,
 } from "@tanstack/react-query";
+import Categories from "../(homeComponents)/Categories";
+import HeroSection from "../(homeComponents)/heroSection";
+import TwoFromEach from "../(homeComponents)/twofromeach";
 
 export default async function Home() {
 	const categories = ["accessories", "wears", "shoes", "bags"];

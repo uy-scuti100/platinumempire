@@ -16,8 +16,8 @@ import CartProducts from "@/app/(store)/(cart)/cart/cartProducts";
 import { ShoppingCartIcon } from "lucide-react";
 
 interface CartComponentProps {
-	isAboveLimit: boolean;
-	pathname: string;
+	isAboveLimit?: boolean;
+	pathname?: string;
 }
 
 export function CartComponent({ isAboveLimit, pathname }: CartComponentProps) {

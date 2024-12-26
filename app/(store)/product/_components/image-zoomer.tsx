@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 // import Image from "next/image";
 // import { X } from "lucide-react";
 
@@ -147,8 +147,8 @@ import { useState, useRef, useEffect } from "react";
 // }
 
 // import { useState, useRef, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 interface ZoomModalProps {
@@ -231,6 +231,12 @@ export const ZoomModal = ({
 									alt={alt}
 									height={2500}
 									width={2500}
+									style={{
+										maxWidth: "none",
+										width: "150%",
+										transform: "translate(0, 0)",
+									}}
+									loading="lazy"
 									className="h-full pointer-events-none w-[150%] object-cover max-w-none"
 									draggable={false}
 								/>

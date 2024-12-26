@@ -1,4 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,600;0,700;0,800;1,500&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -79,22 +79,19 @@
 }
 
 @layer components {
-	/* .shop-now-btn {
-		@apply px-5 py-3 bg-custom hover:bg-custom/70 text-white uppercase font-bold text-sm tracking-wide rounded-[8px];
-	} */
 	.shop-now-btn {
-		@apply px-5 py-3 bg-black hover:bg-black/70 text-white uppercase font-bold text-sm tracking-wide;
+		@apply px-5 py-3 text-sm font-bold tracking-wide text-white uppercase bg-black hover:bg-black/70;
 	}
 	.btn {
 		@apply h-[50px] flex justify-center items-center rounded-[8px] px-10 py-[10px] text-sm uppercase font-bold;
 	}
-
-	/* .gara {
-		font-family: "EB Garamond", serif;
-	} */
+	.receipt {
+		font-family: "Inconsolata", serif;
+		font-optical-sizing: auto;
+	}
 
 	.btn-accent {
-		@apply bg-custom text-primary hover:bg-custom-hover transition-all;
+		@apply transition-all bg-custom text-primary hover:bg-custom-hover;
 	}
 
 	.input {
@@ -112,6 +109,7 @@
 		transition: transform 500ms cubic-bezier(0.65, 0, 0.35, 1);
 	}
 }
+
 .productSlider .swiper-pagination-bullets {
 	bottom: 1.5rem;
 }

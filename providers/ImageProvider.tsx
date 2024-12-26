@@ -37,6 +37,8 @@ export default function ImageProvider({
 				style={style}
 				width={width}
 				height={height}
+				sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1060px) 75vw, 60vw"
+				loading="lazy"
 				fill={fill}
 				className={
 					cn(
@@ -49,7 +51,6 @@ export default function ImageProvider({
 					className
 				}
 				onLoad={() => setLoading(false)}
-				sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1060px) 75vw, 60vw"
 			/>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { fetchAllProducts } from "@/actions";
+import { fetchAllProducts } from "@/actions/products";
 import {
 	dehydrate,
 	HydrationBoundary,
@@ -121,10 +121,13 @@ export default async function Page({
 
 	const finalQuery = filter + order;
 
+	const PRODUCTS_PER_PAGE = 4; // Define the same limit as in GridContainer
+	const start = 0; // Start with the first page
+
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: ["PRODUCTS", finalQuery],
-		queryFn: () => fetchAllProducts(finalQuery),
+		queryKey: ["INFINITE_PRODUCTS", finalQuery],
+		queryFn: () => fetchAllProducts(finalQuery, start, PRODUCTS_PER_PAGE),
 	});
 
 	return (

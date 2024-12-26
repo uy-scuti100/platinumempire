@@ -1,14 +1,12 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useStore } from "@/lib/store/cart";
-import { ICartProduct } from "@/lib/store/cart"; // Assuming this is where your store types are defined
+import { ICartProduct, useStore } from "@/lib/store/cart";
+import { formatPriceInNaira } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import clsx from "clsx";
 import { MinusIcon, PlusIcon, X } from "lucide-react";
-import { formatPriceInNaira } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function CartProducts() {
 	const cart = useStore((state) => state.cart);
@@ -47,12 +45,14 @@ export default function CartProducts() {
 									/>
 								</div>
 								<div className="flex flex-row">
-									<div className="relative w-16 h-16 overflow-hidden border rounded-md border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+									<div className="relative w-[64px] h-[64px] overflow-hidden border rounded-md border-neutral-300">
 										<Image
 											src={urlFor(image).url()}
 											fill
+											loading="lazy"
 											alt={name}
-											className="object-cover w-full h-full"
+											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+											className="object-cover w-full h-full "
 										/>
 									</div>
 									<Link
@@ -67,8 +67,8 @@ export default function CartProducts() {
 													<span className="text-sm capitalize">
 														{selectedColor}
 													</span>
-												)}{" "}
-												/{" "}
+												)}
+												{selectedColor && <span> / </span>}
 												{selectedSize && (
 													<span className="text-sm">{selectedSize}</span>
 												)}

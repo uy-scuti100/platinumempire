@@ -15,6 +15,14 @@ export const structure: StructureResolver = (S) =>
 			S.documentTypeListItem("shoeSize").title("Shoe Sizes"),
 			S.documentTypeListItem("bagSize").title("Bag Sizes"),
 			S.documentTypeListItem("accessorySize").title("Accessory Sizes"),
+			S.divider(),
+			S.documentTypeListItem("stockRequest").title("Stock Requests"),
+			S.divider(),
+			S.documentTypeListItem("order").title("Orders"),
+			S.divider(),
+			S.documentTypeListItem("state").title("Shipping"),
+			S.divider(),
+			S.documentTypeListItem("country").title("Countries"),
 
 			...S.documentTypeListItems().filter(
 				(item) =>
@@ -27,6 +35,10 @@ export const structure: StructureResolver = (S) =>
 						"bagSize",
 						"clotheType",
 						"accessorySize",
+						"stockRequest",
+						"order",
+						"state",
+						"country",
 					].includes(item.getId()!)
 			),
 		]);

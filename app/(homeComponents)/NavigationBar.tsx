@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
 
 import {
@@ -13,17 +12,17 @@ import {
 import Image from "next/image";
 
 import image1 from "/public/2piece.jpg";
-import image2 from "/public/womenstrouser.jpg";
 import image3 from "/public/fineshoe2.jpg";
 import men1 from "/public/menshirtnav.jpg";
-import men2 from "/public/mentrousernav.jpg";
 import men3 from "/public/menshoenav.jpg";
-import women1 from "/public/womenshirtnav.jpg";
-import women2 from "/public/womentrousernav.jpg";
-import women3 from "/public/womenshoenav.jpg";
+import men2 from "/public/mentrousernav.jpg";
+import access3 from "/public/nails.jpg";
 import access1 from "/public/necklace.jpg";
 import access2 from "/public/ringlight.jpg";
-import access3 from "/public/nails.jpg";
+import women1 from "/public/womenshirtnav.jpg";
+import women3 from "/public/womenshoenav.jpg";
+import image2 from "/public/womenstrouser.jpg";
+import women2 from "/public/womentrousernav.jpg";
 
 export function Navigation() {
 	return (
@@ -108,6 +107,7 @@ export function Navigation() {
 										placeholder="blur"
 										height={300}
 										width={300}
+										priority
 										className="transition-transform transform-gpu group-hover:scale-110 duration-700 ease-in-out object-cover h-[300px] w-[300px]"
 									/>
 
@@ -122,6 +122,7 @@ export function Navigation() {
 										placeholder="blur"
 										height={300}
 										width={300}
+										priority
 										className="transition-transform transform-gpu group-hover:scale-110 duration-700 ease-in-out object-cover h-[300px] w-[300px]"
 									/>
 

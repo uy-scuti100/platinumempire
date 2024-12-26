@@ -1,12 +1,14 @@
 "use client";
+import { IProduct } from "@/actions/products";
+import { urlFor } from "@/sanity/lib/image";
+
+import Image from "next/image";
+import { useState } from "react";
+import { MdOutlineZoomOutMap } from "react-icons/md";
 import "swiper/css";
 import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import Image from "next/image";
-import { IProduct } from "@/actions";
-import { urlFor } from "@/sanity/lib/image";
-import { useState } from "react";
 import { ZoomModal } from "./image-zoomer";
 
 export default function ProductImageComponent({
@@ -45,7 +47,7 @@ export default function ProductImageComponent({
 					{PRODUCTIMAGES.map((image, index) => (
 						<SwiperSlide
 							key={index}
-							className="relative h-[500px] w-[500px] "
+							className="relative h-[500px] w-full "
 							onClick={() => setZoomImageUrl(urlFor(image).url())}
 						>
 							<Image
@@ -54,10 +56,20 @@ export default function ProductImageComponent({
 								height={500}
 								blurDataURL={product.lqips?.[index]}
 								alt={`${product?.name} - image`}
-								className="object-cover w-[500px] h-[500px] cursor-zoom-in"
+								className="object-cover w-full h-[500px] cursor-zoom-in"
 								sizes="(min-width: 808px) 50vw, 100vw"
-								loading="lazy"
+								priority={false}
+								style={{
+									objectFit: "cover",
+									width: "100%",
+									height: "500px",
+								}}
 							/>
+							{
+								<div className="absolute top-3 right-3 ">
+									<MdOutlineZoomOutMap className="w-6 h-6 text-custom cursor-zoom-out" />
+								</div>
+							}
 							{product.isNew && (
 								<div className="absolute left-3 bottom-3">
 									<span className="bg-[#E85A06] text-white px-2 py-1 text-xs font-medium uppercase">
@@ -70,7 +82,7 @@ export default function ProductImageComponent({
 				</Swiper>
 			) : (
 				<div
-					className={`grid grid-cols-2 grid-rows-2 gap-2 w-full ${IMAGECOUNT === 1 ? "min-h-[700px] h-full" : "aspect-square"}`}
+					className={`hidden sm:grid grid-cols-2 grid-rows-2 gap-2 w-full ${IMAGECOUNT === 1 ? "min-h-[700px] h-full" : "aspect-square"}`}
 				>
 					{product?.imageUrls?.slice(0, 4).map((image, index) => (
 						<div
@@ -84,10 +96,11 @@ export default function ProductImageComponent({
 								blurDataURL={product.lqips?.[index]}
 								placeholder="blur"
 								alt={product?.name ?? ""}
-								className="object-cover cursor-zoom-in"
+								className={`object-cover w-[500px] h-[500px] cursor-zoom-in ${IMAGECOUNT === 3 && index === 2 && "object-bottom"}`}
 								sizes="(min-width: 568px) 33vw"
 								loading="lazy"
 							/>
+
 							{product.isNew && (
 								<div className="absolute left-3 bottom-3">
 									<span className="bg-[#E85A06] text-white px-2 py-1 text-xs font-medium uppercase cursor-zoom-in">

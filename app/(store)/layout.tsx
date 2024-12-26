@@ -1,11 +1,11 @@
+import Footer from "@/components/globalcomponents/footer";
+import Navbar from "@/components/globalcomponents/navbar";
+import TopLoader from "@/components/globalcomponents/top-loader";
+import { siteConfig } from "@/lib/utils";
+import Providers from "@/providers/react-query";
 import type { Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import { siteConfig } from "@/lib/utils";
-import Navbar from "@/components/globalcomponents/navbar";
-import Footer from "@/components/globalcomponents/footer";
-import Providers from "@/providers/react-query";
-import TopLoader from "@/components/globalcomponents/top-loader";
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -77,7 +77,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" suppressHydrationWarning={true}>
+		<html lang="en" suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>

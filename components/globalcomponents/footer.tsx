@@ -1,74 +1,77 @@
-import { FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa";
+import Link from "next/link";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { Input } from "../ui/input";
+import { FooterModals } from "./footer-modals";
 
-import React from "react";
-
-export default function footer() {
+export default function Footer() {
 	return (
-		<footer className="pt-16 px-5">
-			{" "}
+		<footer className="px-5 pt-16 bg-background">
 			<div className="container mx-auto">
-				<div className="text-center ">
-					<h2 className="h2 uppercase mb-6 font-semibold">
+				<div className="text-center">
+					<h2 className="mb-6 text-2xl font-semibold uppercase">
 						Subscribe to our newsletter
 					</h2>
-					<p className="text-[#777777]">
+					<p className="text-muted-foreground">
 						Be the first to get the latest news about trends, promotions, and
 						much more
 					</p>
 				</div>
 				{/* form */}
-				<form className="w-full max-w-3xl mx-auto flex flex-col md:flex-row gap-5 my-14">
-					<input
-						type="text"
+				<form className="flex flex-col w-full max-w-md gap-4 mx-auto my-10 sm:flex-row">
+					<Input
+						type="email"
 						placeholder="Your email address"
-						className="input text-center"
+						className="flex-grow text-center rounded-none h-[50px]"
 					/>
-					<button className="btn btn-accent min-w-[150px] text-white">
+					<button className="rounded-none btn btn-accent min-w-[150px] text-white whitespace-nowrap">
 						Join
 					</button>
 				</form>
 				{/* links */}
-				<div className="text-base text-primary flex gap-x-6 capitalize max-w-max mx-auto mb-9 ">
-					<a href="#" className="hover:text-primary transition-all text-center">
-						{" "}
-						Returns Policy
-					</a>
-					<a href="#" className="hover:text-primary transition-all text-center">
-						{" "}
-						Track your order
-					</a>
-					<a href="#" className="hover:text-primary transition-all text-center">
-						{" "}
-						Shipping & delivery
-					</a>
+				<div className="flex flex-wrap justify-center gap-6 mb-10">
+					<FooterModals />
 				</div>
 				{/* social buttons */}
-				<div className="flex gap-x-6 max-w-max mx-auto text-lg mb-16">
-					<a href="#" className="hover:text-primary transition-all">
+				<div className="flex justify-center gap-6 mb-10 text-xl">
+					<Link
+						href="#"
+						className="transition-colors text-primary hover:text-primary/80"
+					>
 						<FaInstagram />
-					</a>
-					<a href="#" className="hover:text-primary transition-all">
+					</Link>
+					<Link
+						href="#"
+						className="transition-colors text-primary hover:text-primary/80"
+					>
 						<FaFacebook />
-					</a>
-
-					<a href="#" className="hover:text-primary transition-all">
+					</Link>
+					<Link
+						href="#"
+						className="transition-colors text-primary hover:text-primary/80"
+					>
 						<FaTiktok />
-					</a>
+					</Link>
 				</div>
 			</div>
-			<div className="py-10 bprder-t border-t-primary">
+			<div className="py-8 border-t border-border">
 				<div className="container mx-auto">
-					<div className="text-center text-sm text-primary">
-						copyright &copy; Platinum fashion Hub Inc {new Date().getFullYear()}
-						.
-						<br />
+					<div className="text-sm text-center text-muted-foreground">
+						&copy; Platinum Fashion Hub Inc {new Date().getFullYear()}. <br />{" "}
 						All rights reserved.
 					</div>
+				</div>
+				<div className="mt-10 text-sm text-center text-muted-foreground">
+					<p>Designed and Developed by</p>
+					<Link
+						href="https://x.com/Hussain_Joe"
+						target="_blank"
+						rel="noreferrer"
+						className="inline-block mt-1 font-semibold hover:underline"
+					>
+						🏮 UY SCUTI 🧘🏿‍♂️
+					</Link>
 				</div>
 			</div>
 		</footer>
 	);
 }
-// \ <a href="#" className="hover:text-primary transition-all">
-// <FaYoutube />
-// </a>

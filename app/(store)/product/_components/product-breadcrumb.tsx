@@ -1,4 +1,4 @@
-import { IProduct } from "@/actions";
+import { IProduct } from "@/actions/products";
 import {
 	Breadcrumb,
 	BreadcrumbItem,

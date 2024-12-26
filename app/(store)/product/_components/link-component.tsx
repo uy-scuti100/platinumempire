@@ -7,6 +7,7 @@ import React from "react";
 interface ILinkComponent {
 	className?: string;
 	children: React.ReactNode;
+	disabled: boolean;
 	href: string;
 	variant?: string;
 	param: string;
@@ -17,6 +18,7 @@ export default function LinkComponent({
 	children,
 	href,
 	param,
+	disabled,
 	variant = "outline",
 }: ILinkComponent) {
 	const router = useRouter();
@@ -42,6 +44,7 @@ export default function LinkComponent({
 	return (
 		<Button
 			onClick={handleClick}
+			disabled={disabled}
 			variant={
 				variant as
 					| "default"

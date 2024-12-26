@@ -1,7 +1,7 @@
 "use client";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function HeroSection() {
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -122,7 +122,8 @@ export default function HeroSection() {
 								className="w-[100vw] h-[100vh] object-cover"
 								width={500}
 								height={500}
-								priority
+								sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1060px) 75vw, 60vw"
+								loading="lazy"
 							/>
 							<span className="absolute inset-0 bg-black/30" />
 

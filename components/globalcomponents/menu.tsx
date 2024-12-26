@@ -1,5 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
 	Sheet,
 	SheetContent,
@@ -8,17 +13,12 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useState } from "react";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
 export default function Menu({
@@ -29,6 +29,9 @@ export default function Menu({
 	pathname: string;
 }) {
 	const [open, setOpen] = useState(false);
+
+	const isMobile =
+		typeof window !== "undefined" ? window.innerWidth < 768 : false;
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger asChild>
@@ -43,15 +46,20 @@ export default function Menu({
 					/>
 				</div>
 			</SheetTrigger>
-			<SheetContent side="left" className="overflow-auto z-[9999]">
+			<SheetContent
+				side={isMobile ? "top" : "left"}
+				className="overflow-auto z-[9999]"
+			>
 				<SheetHeader>
 					<SheetTitle className="p-2 mt-8 border border-black">
 						<Image
 							src="/logo1.png"
+							priority
+							sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1060px) 75vw, 60vw"
 							alt="logo"
 							width={300}
 							height={300}
-							className="h-[65px] w-[300px]"
+							className="h-[65px] md:w-[300px] w-full object-contain"
 						/>
 					</SheetTitle>
 					<SheetDescription className="p-2 font-bold uppercase">

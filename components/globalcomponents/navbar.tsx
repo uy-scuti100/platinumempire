@@ -71,8 +71,13 @@ export default function Navbar() {
 			};
 		}
 	}, [halfPage, isHome]);
+
+	const NONESHOWINGPAGES = ["/thank-you", "/checkout"];
+	if (NONESHOWINGPAGES.includes(pathname)) {
+		return null;
+	}
 	return (
-		<nav className="fixed md:pb-6 w-full top-0 z-[500]">
+		<nav className="fixed md:pb-6 w-full top-0 z-50">
 			<motion.div
 				initial="initial"
 				animate="animate"
@@ -113,7 +118,11 @@ export default function Navbar() {
 						<Image
 							src="/logo.svg"
 							alt="platinum  Fashion hub"
-							className="w-[150px] xl:w-[200px] z-[70]"
+							sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1060px) 75vw, 60vw"
+							loading="lazy"
+							width={150}
+							height={150}
+							className="w-[150px] xl:h-[150px] xl:w-[200px] z-[70] "
 							style={
 								isHome
 									? { filter: `brightness(${logoColor}%)` }
