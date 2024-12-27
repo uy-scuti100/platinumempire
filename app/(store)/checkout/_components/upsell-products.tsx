@@ -1,9 +1,9 @@
 "use client";
-import { fetchUpsellProducts, IProduct } from "@/actions/products";
+import { fetchUpsellProducts } from "@/actions/products";
 import ProductCard from "@/components/globalcomponents/ProductCard";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ProductCardSkeleton } from "../../products/components/ProductGrid";
 
 interface CartItem {
@@ -21,26 +21,11 @@ interface Cart {
 }
 
 export default function UpsellProducts({ cart }: { cart: Cart }) {
-	const [upsellProducts, setUpsellProducts] = useState<IProduct[]>([]);
-	const [loading, setLoading] = useState(false);
-
-	useEffect(() => {
-		const getUpsellData = async () => {
-			try {
-				setLoading(true);
-				if (!cart.items.length) return;
-
-				const upsellData = await fetchUpsellProducts(cart.items);
-				setUpsellProducts(upsellData);
-			} catch (error) {
-				console.error("Error fetching upsell products:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		getUpsellData();
-	}, [cart]);
+	const { data: upsellProducts = [], isLoading: loading } = useQuery({
+		queryKey: ["upsellProducts", cart.items],
+		queryFn: () => fetchUpsellProducts(cart.items),
+		enabled: cart.items.length > 0,
+	});
 	return (
 		<div className="mt-8">
 			{loading
@@ -68,8 +53,7 @@ export default function UpsellProducts({ cart }: { cart: Cart }) {
 			</div>
 		</div>
 	);
-}
-// const addToCart = useStore((state) => state.addToCart);
+} // const addToCart = useStore((state) => state.addToCart);
 
 {
 	/* <Button asChild variant={"link"}> */

@@ -14,6 +14,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 import CartProducts from "@/app/(store)/(cart)/cart/cartProducts";
 import { ShoppingCartIcon } from "lucide-react";
+import { Button } from "../ui/button";
 
 interface CartComponentProps {
 	isAboveLimit?: boolean;
@@ -119,13 +120,15 @@ function CheckoutButton({ onClose }: { onClose?: () => void }) {
 	const pending = false;
 
 	return (
-		<Link
-			href={"/checkout"}
-			className="block w-full p-3 text-sm font-medium text-center text-white bg-blue-600 rounded-none  opacity-90 hover:opacity-100"
-			onClick={onClose}
-		>
-			{pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}
-		</Link>
+		<Button asChild>
+			<Link
+				href={"/checkout"}
+				className="block w-full p-3 text-sm font-medium text-center  rounded-none  opacity-90 hover:opacity-100"
+				onClick={onClose}
+			>
+				{pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}
+			</Link>
+		</Button>
 	);
 }
 

@@ -9,6 +9,7 @@ import {
 import { useStore } from "@/lib/store/cart";
 import { formatPriceInNaira } from "@/lib/utils";
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import CartItems from "./_components/cart-items";
 import { Header } from "./_components/header";
 import UpsellProducts from "./_components/upsell-products";
@@ -52,6 +53,10 @@ export default function Page() {
 		uniqueKey: item.uniqueKey,
 		_id: item._id,
 	}));
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
+
+	if (!mounted) return null;
 
 	return (
 		<main className="min-h-screen max-w-4xl mx-auto">

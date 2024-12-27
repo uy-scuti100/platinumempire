@@ -264,7 +264,7 @@ export const fetchUpsellProducts = async (
         && !(_id in $cartIds)
         && inStock == true
         && (${priceRangeConditions})
-      ] | order(price desc)[0...12] {
+      ] | order(price desc)[0...10] {
         _id,
         name,
         "slug": slug.current,

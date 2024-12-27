@@ -186,6 +186,11 @@ function OrderDetails() {
 						</div>
 					</div>
 
+					<div className="border-b pb-4">
+						<h2 className="font-semibold mb-2">Order Note</h2>
+						<p className="text-lg">{orderData.orderNote}</p>
+					</div>
+
 					{/* Order Summary */}
 					<div>
 						<h2 className="font-semibold mb-2">Order Summary</h2>

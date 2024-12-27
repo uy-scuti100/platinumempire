@@ -5,7 +5,7 @@ export function CheckoutWarning() {
 	return (
 		<Alert
 			variant="warning"
-			className="mb-4 border-2 border-yellow-200 bg-yellow-50"
+			className="mb-4 border-2 border-yellow-200 bg-yellow-50 rounded-none"
 		>
 			<AlertTriangle className="h-5 w-5 text-yellow-600" />
 			<AlertTitle className="text-lg font-semibold text-yellow-800 mb-2">

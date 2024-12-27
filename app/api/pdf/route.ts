@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 		await page.setViewport({
 			width: 1200,
 			height: 1600,
-			deviceScaleFactor: 2, // Higher resolution for better quality
+			deviceScaleFactor: 5, // Higher resolution for better quality
 		});
 
 		// Wait longer for images to load

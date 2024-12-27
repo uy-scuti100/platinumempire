@@ -199,22 +199,26 @@ export default function ProductInformationComponent({
 								Colors:
 							</p>
 							<div className="flex flex-wrap items-center gap-3 pb-4 text-sm">
-								{product.color.map((color: string, i: number) => (
-									<div key={i} className="rounded-none ">
-										<LinkComponent
-											param="color"
-											disabled={!isInStock}
-											href={color}
-											variant={selectedColor === color ? "default" : "outline"}
-											className={`w-full capitalize rounded-none  
+								{product.color
+									.filter((color) => color.trim())
+									.map((color: string, i: number) => (
+										<div key={i} className="rounded-none">
+											<LinkComponent
+												param="color"
+												disabled={!isInStock}
+												href={color}
+												variant={
+													selectedColor === color ? "default" : "outline"
+												}
+												className={`w-full capitalize rounded-none  
                         ${!isInStock && "opacity-50"}
                         ${errorState ? "border-[#DA0205] animate-pulse duration-300" : ""}
                       `}
-										>
-											{color}
-										</LinkComponent>
-									</div>
-								))}
+											>
+												{color}
+											</LinkComponent>
+										</div>
+									))}
 							</div>
 						</>
 					)}

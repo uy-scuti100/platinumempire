@@ -95,6 +95,11 @@ export const orderSchema = defineType({
 			type: "string",
 		}),
 		defineField({
+			name: "orderNote",
+			title: "Order Note",
+			type: "string",
+		}),
+		defineField({
 			name: "totalAmount",
 			title: "Total Amount",
 			type: "number",

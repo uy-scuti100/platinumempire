@@ -20,6 +20,7 @@ export async function POST(request: Request) {
 			react: StoreNotificationEmail({
 				order: {
 					orderNumber: orderData.orderNumber,
+					orderNote: orderData.orderNote,
 					customerName: orderData.customerName,
 					email: orderData.email,
 					phone: orderData.phone,

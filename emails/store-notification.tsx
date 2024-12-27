@@ -18,6 +18,7 @@ export interface StoreNotificationEmailProps {
 	order: {
 		orderNumber: string;
 		customerName: string;
+		orderNote?: string;
 		email: string;
 		phone: string;
 		totalAmount: number;
@@ -46,6 +47,7 @@ export default function StoreNotificationEmail({
 	const {
 		orderNumber,
 		customerName,
+		orderNote,
 		email,
 		phone,
 		totalAmount,
@@ -135,6 +137,12 @@ export default function StoreNotificationEmail({
 								</Column>
 							</Row>
 						))}
+					</Section>
+
+					{/* Order Note Section */}
+					<Section style={section}>
+						<Heading style={h2}>Order Note</Heading>
+						<Text>{orderNote}</Text>
 					</Section>
 
 					{/* Summary Section */}

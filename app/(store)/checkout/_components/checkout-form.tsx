@@ -19,6 +19,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useStore } from "@/lib/store/cart";
 import { formatPriceInNaira } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,6 +42,7 @@ const checkoutSchema = z
 		email: z.string().email("Invalid email address"),
 		phoneNumber: z.string().min(11, "Phone number must be at least 11 digits"),
 		deliveryMethod: z.enum(["shipping", "pickup"]),
+		orderNote: z.string().optional(),
 	})
 	.and(
 		z.discriminatedUnion("deliveryMethod", [
@@ -226,6 +228,7 @@ export function CheckoutForm() {
 						email: data.email,
 						phone: data.phoneNumber,
 						deliveryMethod: data.deliveryMethod,
+						orderNote: data.orderNote,
 						shippingFee,
 						totalAmount,
 						paymentReference: reference.reference,
@@ -245,6 +248,7 @@ export function CheckoutForm() {
 					// Prepare receipt data
 					const receiptData = {
 						...orderDetails,
+						orderNote: data.orderNote,
 						issueDate: new Date().toISOString(),
 						products: cartData.map((item) => ({
 							...item.productDetails,
@@ -285,12 +289,17 @@ export function CheckoutForm() {
 	return (
 		<>
 			{printing && (
-				<div className="flex justify-center items-center h-screen fixed inset-0 z-50 bg-black/50 text-white">
+				<div className="flex justify-center items-center h-screen fixed inset-0 z-50 bg-black/90 text-white">
 					<div className="text-center">
-						<h1 className="text-2xl font-bold mb-4"> Generating Receipt </h1>
-						<p>Please wait while we print your receipt.</p>
+						<h1 className="text-3xl font-extrabold mb-6 animate-pulse">
+							Preparing Your Order Details
+						</h1>
+						<p className="text-lg text-gray-300">
+							We're finalizing your purchase and generating your receipt. Just a
+							moment...
+						</p>
 						<div className="mt-4 flex items-center justify-center w-full">
-							<Loader className="h-10 w-10 animate-spin" />
+							<Loader className="h-10 w-10 animate-spin duration-200" />
 						</div>
 					</div>
 				</div>
@@ -301,7 +310,7 @@ export function CheckoutForm() {
 					<div>
 						<Label htmlFor="firstName">First Name</Label>
 						<Input
-							className="rounded"
+							className="rounded-none"
 							id="firstName"
 							{...register("firstName")}
 						/>
@@ -314,7 +323,7 @@ export function CheckoutForm() {
 					<div>
 						<Label htmlFor="lastName">Last Name</Label>
 						<Input
-							className="rounded"
+							className="rounded-none"
 							id="lastName"
 							{...register("lastName")}
 						/>
@@ -329,7 +338,7 @@ export function CheckoutForm() {
 				<div>
 					<Label htmlFor="email">Email</Label>
 					<Input
-						className="rounded"
+						className="rounded-none"
 						id="email"
 						type="email"
 						{...register("email")}
@@ -342,7 +351,7 @@ export function CheckoutForm() {
 				<div>
 					<Label htmlFor="phoneNumber">Phone Number</Label>
 					<Input
-						className="rounded"
+						className="rounded-none"
 						id="phoneNumber"
 						type="tel"
 						{...register("phoneNumber")}
@@ -400,7 +409,7 @@ export function CheckoutForm() {
 								onValueChange={(value) => setValue("country", value)}
 								value={selectedCountry}
 							>
-								<SelectTrigger className="w-full rounded">
+								<SelectTrigger className="w-full rounded-none">
 									<SelectValue placeholder="Select Country" />
 								</SelectTrigger>
 								<SelectContent>
@@ -427,7 +436,7 @@ export function CheckoutForm() {
 									onValueChange={(value) => setValue("state", value)}
 									value={selectedState || undefined}
 								>
-									<SelectTrigger className="w-full rounded">
+									<SelectTrigger className="w-full rounded-none">
 										<SelectValue placeholder="Select State" />
 									</SelectTrigger>
 									<SelectContent>
@@ -451,7 +460,7 @@ export function CheckoutForm() {
 						<div>
 							<Label htmlFor="address">Address</Label>
 							<Input
-								className="rounded"
+								className="rounded-none"
 								id="address"
 								{...register("address")}
 							/>
@@ -467,7 +476,7 @@ export function CheckoutForm() {
 								Apartment, suite, etc. (optional)
 							</Label>
 							<Input
-								className="rounded"
+								className="rounded-none"
 								id="apartment"
 								{...register("apartment")}
 							/>
@@ -476,7 +485,11 @@ export function CheckoutForm() {
 						<div className="grid grid-cols-2 gap-4">
 							<div>
 								<Label htmlFor="city">City</Label>
-								<Input className="rounded" id="city" {...register("city")} />
+								<Input
+									className="rounded-none"
+									id="city"
+									{...register("city")}
+								/>
 
 								{(errors as any).city && (
 									<p className="text-red-500 text-sm mt-1">
@@ -487,11 +500,23 @@ export function CheckoutForm() {
 							<div>
 								<Label htmlFor="postalCode">Postal Code (optional)</Label>
 								<Input
-									className="rounded"
+									className="rounded-none"
 									id="postalCode"
 									{...register("postalCode")}
 								/>
 							</div>
+						</div>
+
+						<div className="w-full">
+							<Label htmlFor="notes">
+								Order special notes or instructions (optional)
+							</Label>
+							<Textarea
+								className="rounded-none min-h-28 resize-none placeholder:text-neutral-500 placeholder:text-sm"
+								id="notes"
+								{...register("orderNote")}
+								placeholder="Notes about your order, e.g. special notes for delivery."
+							/>
 						</div>
 						<div>
 							<CheckoutWarning />
@@ -530,7 +555,7 @@ export function CheckoutForm() {
 
 				<Button
 					type="submit"
-					className="w-full h-[50px] show-now-btn btn rounded font-black"
+					className="w-full h-[50px] show-now-btn btn rounded-none font-black"
 				>
 					Pay Now
 				</Button>
