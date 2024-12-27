@@ -264,7 +264,8 @@ export const fetchUpsellProducts = async (
         && !(_id in $cartIds)
         && inStock == true
         && (${priceRangeConditions})
-      ] | order(price desc)[0...10] {
+
+      ] | order(price desc)[0...6] {
         _id,
         name,
         "slug": slug.current,
@@ -287,7 +288,8 @@ export const fetchUpsellProducts = async (
             && !(_id in $cartIds)
             && inStock == true
             && price >= ${Math.min(...priceRanges.map((r) => r.min))}
-          ] | order(price asc)[0...${12 - (products?.length || 0)}] {
+
+          ] | order(price asc)[0...${6 - (products?.length || 0)}] {
             _id,
             name,
             "slug": slug.current,
@@ -305,7 +307,7 @@ export const fetchUpsellProducts = async (
 			const allProducts = [...(products || []), ...fallbackProducts];
 			const shuffledUpsellProducts = shuffleArray(allProducts as IProduct[]);
 
-			return shuffledUpsellProducts;
+			return shuffledUpsellProducts.slice(0, 6);
 		}
 
 		return products;

@@ -58,7 +58,7 @@ export default function Footer() {
 						<FaTiktok />
 					</Link>
 					<Link
-						href="https://wa.me/08148439316"
+						href="https://wa.link/e6ur5f"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="transition-colors text-primary hover:text-primary/80"

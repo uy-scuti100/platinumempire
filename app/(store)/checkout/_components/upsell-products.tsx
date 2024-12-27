@@ -28,20 +28,25 @@ export default function UpsellProducts({ cart }: { cart: Cart }) {
 	});
 	return (
 		<div className="mt-8">
-			{loading
-				? Array.from({ length: 2 }, (_, i) => (
-						<div key={i} className="grid grid-cols-2 gap-y-4 gap-x-1">
-							<ProductCardSkeleton />
-						</div>
-					))
-				: null}
-			<h2 className="text-lg font-semibold mb-4">Before You Go</h2>
+			<div className="grid grid-cols-2 gap-y-4 gap-x-1">
+				{loading
+					? Array.from({ length: 2 }, (_, i) => <ProductCardSkeleton key={i} />)
+					: null}
+			</div>
+
+			{upsellProducts.length > 0 && (
+				<h2 className="text-lg font-semibold mb-6">
+					Check These Out Before You Go
+				</h2>
+			)}
 			<div className="grid grid-cols-2 gap-y-4 gap-x-1">
 				{upsellProducts.length > 0 ? (
 					upsellProducts.map((product) => (
-						<div key={product._id}>
-							<ProductCard product={product} />
-						</div>
+						<>
+							<div key={product._id}>
+								<ProductCard product={product} />
+							</div>
+						</>
 					))
 				) : (
 					<div className=" flex items-center justify-center px-4 w-full col-span-2 mt-10 ">

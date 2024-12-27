@@ -96,7 +96,11 @@ export function SearchDialog() {
 						<Input
 							onChange={handleSearchChange}
 							className="h-12 border-none pl-0 text-lg font-semibold focus-visible:ring-0 focus-visible:ring-offset-0"
-							autoFocus
+							ref={(input) => {
+								if (input && openSearch) {
+									input.focus();
+								}
+							}}
 							value={searchTerm}
 							placeholder="What are you looking for..."
 						/>
@@ -121,7 +125,7 @@ export function SearchDialog() {
 							<span className="font-semibold text-black">{searchTerm}</span>"
 						</p>
 
-						{/* <div className="flex flex-wrap justify-center w-full gap-2 mt-1">
+						<div className="hidden md:flex flex-wrap justify-center w-full gap-2 mt-1">
 							{searchCounts.nameMatches > 0 && (
 								<span>
 									Matches {searchCounts.nameMatches} results in product names
@@ -149,7 +153,7 @@ export function SearchDialog() {
 									descriptions
 								</span>
 							)}
-						</div> */}
+						</div>
 					</div>
 				)}
 
@@ -157,12 +161,12 @@ export function SearchDialog() {
 				<div
 					ref={scrollRef}
 					className="relative mt-4 overflow-y-auto bg-white rounded-sm"
-					style={{ height: "calc(90vh - 80px)" }}
+					style={{ height: "100vh" }}
 					scroll-behavior="smooth"
 				>
 					{isSearchLoading ? (
-						<div className="flex justify-center items-center h-full">
-							<LoadingDots className="bg-white" />
+						<div className="flex justify-center items-center h-[70vh]">
+							<LoadingDots className="h-5 w-5" />
 						</div>
 					) : (
 						<div className="grid grid-cols-2 md:grid-cols-3 gap-x-1 gap-y-5 p-4">
@@ -184,13 +188,16 @@ export function SearchDialog() {
 						</div>
 					)}
 					{isFetchingNextPage && <div>Loading more...</div>}
-					{data?.pages.length !== 0 && !hasNextPage && totalResults > 0 && (
-						<div className="text-center mt-20 text-muted-foreground">
-							All{" "}
-							<span className="font-semibold text-black">{totalResults}</span>{" "}
-							results have been displayed.
-						</div>
-					)}
+					{data &&
+						!hasNextPage &&
+						totalResults > 0 &&
+						data.pages[0].products.length === 0 && (
+							<div className="text-center mt-20 text-muted-foreground">
+								All{" "}
+								<span className="font-semibold text-black">{totalResults}</span>{" "}
+								results have been displayed.
+							</div>
+						)}
 				</div>
 			</div>
 		</div>
@@ -199,8 +206,7 @@ export function SearchDialog() {
 
 import clsx from "clsx";
 
-const dots =
-	"mx-[1px] inline-block h-3 w-3 animate-blink rounded-full bg-black";
+const dots = "mx-[1px] inline-block animate-blink rounded-full bg-black";
 
 const LoadingDots = ({ className }: { className: string }) => {
 	return (
