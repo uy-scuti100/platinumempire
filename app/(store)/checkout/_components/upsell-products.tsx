@@ -2,9 +2,9 @@
 import { fetchUpsellProducts, IProduct } from "@/actions/products";
 import ProductCard from "@/components/globalcomponents/ProductCard";
 import { Button } from "@/components/ui/button";
-import { useStore } from "@/lib/store/cart";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ProductCardSkeleton } from "../../products/components/ProductGrid";
 
 interface CartItem {
 	slug: string;
@@ -22,34 +22,40 @@ interface Cart {
 
 export default function UpsellProducts({ cart }: { cart: Cart }) {
 	const [upsellProducts, setUpsellProducts] = useState<IProduct[]>([]);
-	const addToCart = useStore((state) => state.addToCart);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const getUpsellData = async () => {
-			// Fetch upsell products only if the cart has items
-			if (cart.items.length > 0) {
+			try {
+				setLoading(true);
+				if (!cart.items.length) return;
+
 				const upsellData = await fetchUpsellProducts(cart.items);
 				setUpsellProducts(upsellData);
+			} catch (error) {
+				console.error("Error fetching upsell products:", error);
+			} finally {
+				setLoading(false);
 			}
 		};
 
 		getUpsellData();
 	}, [cart]);
-
 	return (
 		<div className="mt-8">
+			{loading
+				? Array.from({ length: 2 }, (_, i) => (
+						<div key={i} className="grid grid-cols-2 gap-y-4 gap-x-1">
+							<ProductCardSkeleton />
+						</div>
+					))
+				: null}
 			<h2 className="text-lg font-semibold mb-4">Before You Go</h2>
 			<div className="grid grid-cols-2 gap-y-4 gap-x-1">
 				{upsellProducts.length > 0 ? (
 					upsellProducts.map((product) => (
 						<div key={product._id}>
 							<ProductCard product={product} />
-							<Link
-								href={`/product/${product.slug}`}
-								className="h-[50px] w-full whitespace-nowrap shop-now-btn btn rounded"
-							>
-								View Product
-							</Link>
 						</div>
 					))
 				) : (
@@ -62,4 +68,20 @@ export default function UpsellProducts({ cart }: { cart: Cart }) {
 			</div>
 		</div>
 	);
+}
+// const addToCart = useStore((state) => state.addToCart);
+
+{
+	/* <Button asChild variant={"link"}> */
+}
+{
+	/* <Link
+								href={`/product/${product.slug}`}
+								className="h-[50px] text-sm underline pt-1"
+							>
+								View Product
+							</Link> */
+}
+{
+	/* </Button> */
 }

@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useStore } from "@/lib/store/cart";
 import { formatPriceInNaira, useDiscountedPrice } from "@/lib/utils";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, Share } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import LinkComponent from "./link-component";
@@ -76,6 +76,18 @@ export default function ProductInformationComponent({
 		return () => clearTimeout(timeoutId);
 	}, [errorState]);
 
+	const handleShare = () => {
+		if (navigator.share) {
+			navigator.share({
+				title: `${product.name} | Platinum fashion hub`,
+				text: `Check out this product: ${product.name}`,
+				url: window.location.href,
+			});
+		} else {
+			alert("Sharing is not supported in this browser.");
+		}
+	};
+
 	const handleAddToCart = () => {
 		if (!canAddToCart) {
 			setErrorState(true);
@@ -108,21 +120,42 @@ export default function ProductInformationComponent({
 
 			<div className="mb-4 tracking-wider">
 				{isOnSale ? (
-					<>
-						<span className="text-[#808080] line-through text-lg mr-2">
+					<div className="flex justify-between items-center w-full">
+						<div>
+							<span className="text-[#808080] line-through text-base mr-2">
+								{formatPriceInNaira(Number(product.price))}
+							</span>
+							<span className="text-[#1c1c1c] text-xl font-bold">
+								{formatPriceInNaira(Number(product.discountedPrice))}
+							</span>
+							<span className="ml-2 text-sm text-custom font-bold">
+								{discountPercentage}% off
+							</span>
+						</div>
+
+						<Button
+							variant={"link"}
+							className="flex items-center"
+							onClick={handleShare}
+						>
+							<Share className="h-4 w-4 mr-2" />
+							Share
+						</Button>
+					</div>
+				) : (
+					<div className="flex justify-between items-center w-full">
+						<span className="text-[#1c1c1c] text-xl font-bold">
 							{formatPriceInNaira(Number(product.price))}
 						</span>
-						<span className="text-[#1c1c1c] text-xl font-bold">
-							{formatPriceInNaira(Number(product.discountedPrice))}
-						</span>
-						<span className="ml-2 text-base text-custom-hover">
-							{discountPercentage}% off
-						</span>
-					</>
-				) : (
-					<span className="text-[#1c1c1c] text-xl font-bold">
-						{formatPriceInNaira(Number(product.price))}
-					</span>
+						<Button
+							variant={"link"}
+							className="flex items-center"
+							onClick={handleShare}
+						>
+							<Share className="h-4 w-4 mr-2" />
+							Share
+						</Button>
+					</div>
 				)}
 			</div>
 

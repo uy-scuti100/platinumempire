@@ -1,4 +1,5 @@
 "use server";
+import { shuffleArray } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { defineQuery } from "next-sanity";
 
@@ -56,8 +57,8 @@ export async function fetchAllProducts(
 			client.fetch<IProduct[]>(ALL_PRODUCTS_QUERY),
 		]);
 
-		console.log("All products Query:", ALL_PRODUCTS_QUERY);
-		return { products: products || [], totalCount: totalCount || 0 };
+		const shuffledProducts = shuffleArray(products as IProduct[]);
+		return { products: shuffledProducts || [], totalCount: totalCount || 0 };
 	} catch (error) {
 		console.error("Error fetching products:", error);
 		return { products: [], totalCount: 0 };
@@ -226,80 +227,14 @@ export const fetchTwoFromEachCategory = async (categories: string[]) => {
 		// Limit the total number of products to 6 (in case there are more)
 		const limitedProducts = allProducts.slice(0, 6);
 
-		return limitedProducts || [];
+		const shuffledLimitedProducts = shuffleArray(limitedProducts as IProduct[]);
+
+		return shuffledLimitedProducts || [];
 	} catch (error) {
 		console.error("Error fetching two from each category products:", error);
 		return [];
 	}
 };
-
-// notifyWhenInStock
-export async function notifyWhenInStock(currentState: any, formData: FormData) {
-	try {
-		const phone = formData.get("phone") as string;
-		const isWhatsApp = formData.get("isWhatsApp") === "on";
-		const message = formData.get("message") as string;
-		const productId = formData.get("productId") as string;
-
-		if (!phone || !productId) {
-			return {
-				success: false,
-				message: "Phone number and product are required.",
-			};
-		}
-
-		// Validate phone number
-		if (!/^\d{11}$/.test(phone)) {
-			return {
-				success: false,
-				message: "Please enter a valid 11-digit phone number.",
-			};
-		}
-
-		const response = await fetch(
-			`https://${process.env.SANITY_STUDIO_PROJECT_ID}.api.sanity.io/${process.env.SANITY_API_VERSION}/data/mutate/${process.env.SANITY_STUDIO_DATASET}`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${process.env.SANITY_STUDIO_TOKEN}`,
-				},
-				body: JSON.stringify({
-					mutations: [
-						{
-							create: {
-								_type: "stockRequest",
-								product: {
-									_type: "reference",
-									_ref: productId,
-								},
-								phone,
-								isWhatsApp,
-								message: message || undefined,
-								status: "pending",
-								createdAt: new Date().toISOString(),
-							},
-						},
-					],
-				}),
-			}
-		);
-		if (!response.ok) {
-			throw new Error("Failed to create stock request");
-		}
-
-		return {
-			success: true,
-			message: "Thank you! We will notify you when this item is back in stock.",
-		};
-	} catch (error) {
-		console.error("Error creating stock request:", error);
-		return {
-			success: false,
-			message: "Something went wrong. Please try again later.",
-		};
-	}
-}
 
 // Get all states
 export const fetchUpsellProducts = async (
@@ -367,7 +302,10 @@ export const fetchUpsellProducts = async (
 				cartIds: cartIds,
 			});
 
-			return [...(products || []), ...fallbackProducts];
+			const allProducts = [...(products || []), ...fallbackProducts];
+			const shuffledUpsellProducts = shuffleArray(allProducts as IProduct[]);
+
+			return shuffledUpsellProducts;
 		}
 
 		return products;
@@ -376,3 +314,70 @@ export const fetchUpsellProducts = async (
 		return [];
 	}
 };
+
+export async function notifyWhenInStock(currentState: any, formData: FormData) {
+	try {
+		const phone = formData.get("phone") as string;
+		const isWhatsApp = formData.get("isWhatsApp") === "on";
+		const message = formData.get("message") as string;
+		const productId = formData.get("productId") as string;
+
+		if (!phone || !productId) {
+			return {
+				success: false,
+				message: "Phone number and product are required.",
+			};
+		}
+
+		// Validate phone number
+		if (!/^\d{11}$/.test(phone)) {
+			return {
+				success: false,
+				message: "Please enter a valid 11-digit phone number.",
+			};
+		}
+
+		const response = await fetch(
+			`https://${process.env.SANITY_STUDIO_PROJECT_ID}.api.sanity.io/${process.env.SANITY_API_VERSION}/data/mutate/${process.env.SANITY_STUDIO_DATASET}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${process.env.SANITY_STUDIO_TOKEN}`,
+				},
+				body: JSON.stringify({
+					mutations: [
+						{
+							create: {
+								_type: "stockRequest",
+								product: {
+									_type: "reference",
+									_ref: productId,
+								},
+								phone,
+								isWhatsApp,
+								message: message || undefined,
+								status: "pending",
+								createdAt: new Date().toISOString(),
+							},
+						},
+					],
+				}),
+			}
+		);
+		if (!response.ok) {
+			throw new Error("Failed to create stock request");
+		}
+
+		return {
+			success: true,
+			message: "Thank you! We will notify you when this item is back in stock.",
+		};
+	} catch (error) {
+		console.error("Error creating stock request:", error);
+		return {
+			success: false,
+			message: "Something went wrong. Please try again later.",
+		};
+	}
+}

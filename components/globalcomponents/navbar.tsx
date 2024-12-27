@@ -83,7 +83,7 @@ export default function Navbar() {
 				animate="animate"
 				variants={textVariants}
 				transition={{ duration: 0.8, ease: "easeInOut" }}
-				className="bg-gradient-to-r from-red-500 to-yellow-500 w-full text-center text-white py-2 text-xs"
+				className="bg-gradient-to-r from-red-700 to-yellow-600 w-full text-center text-white py-2 text-xs"
 			>
 				<p>
 					FREE DELIVERY AVAILABLE ON ORDERS above{" "}
