@@ -2,6 +2,7 @@
 import { IProduct } from "@/actions/products";
 import { urlFor } from "@/sanity/lib/image";
 
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 import { MdOutlineZoomOutMap } from "react-icons/md";
@@ -9,7 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ZoomModal } from "./image-zoomer";
+import ImageModal from "./relatedGoods/imageModal";
 
 export default function ProductImageComponent({
 	product,
@@ -18,6 +19,12 @@ export default function ProductImageComponent({
 	product: IProduct;
 	isMobile: boolean;
 }) {
+	const productIsTwoWeeksOld = (date: string) => {
+		const twoWeeksAgo = new Date();
+		twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 7);
+		return new Date(date) < twoWeeksAgo;
+	};
+
 	const [zoomImageUrl, setZoomImageUrl] = useState<string | null>(null);
 	const IMAGECOUNT =
 		product?.imageUrls?.length > 4 ? 4 : product?.imageUrls?.length;
@@ -66,11 +73,18 @@ export default function ProductImageComponent({
 								}}
 							/>
 							{
-								<div className="absolute top-3 right-3 ">
-									<MdOutlineZoomOutMap className="w-6 h-6 text-custom cursor-zoom-out" />
-								</div>
+								<Button
+									variant={"secondary"}
+									className="absolute top-3 right-3 rounded-full p-2 z-10"
+								>
+									<MdOutlineZoomOutMap className="w-6 h-6 text-custom cursor-zoom-in" />
+								</Button>
 							}
-							{product.isNew && (
+							{/* This code checks if the product is marked as new AND is NOT older than 2 weeks
+							   If both conditions are true, it displays a "New Arrival" badge
+							   The badge appears in the bottom-left corner of the product image
+							   with an orange background and white text */}
+							{product.isNew && !productIsTwoWeeksOld(product._createdAt) && (
 								<div className="absolute left-3 bottom-3">
 									<span className="bg-[#E85A06] text-white px-2 py-1 text-xs font-medium uppercase">
 										New Arrival
@@ -112,11 +126,18 @@ export default function ProductImageComponent({
 					))}
 				</div>
 			)}
-			<ZoomModal
+			{/* <ZoomModal
 				isOpen={!!zoomImageUrl}
 				onClose={() => setZoomImageUrl(null)}
 				imageUrl={zoomImageUrl || ""}
 				alt={product?.name || ""}
+			/> */}
+
+			<ImageModal
+				isOpen={!!zoomImageUrl}
+				src={zoomImageUrl || ""}
+				alt="Zoomed Image"
+				onCloseAction={() => setZoomImageUrl(null)}
 			/>
 		</div>
 	);
