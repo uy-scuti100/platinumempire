@@ -3,12 +3,16 @@ import { siteConfig } from "@/lib/utils";
 import { QueryClient } from "@tanstack/react-query";
 export type paramsType = Promise<{ slug: string }>;
 
-export async function generateMetadata({ params }: { params: paramsType }) {
+export async function generateMetadata({
+	params,
+}: {
+	params: paramsType;
+}): Promise<{ [key: string]: any } | undefined> {
 	const { slug } = await params;
 	const queryClient = new QueryClient();
 	const product = await queryClient.fetchQuery({
 		queryKey: ["SINGLE_PRODUCT", slug],
-		queryFn: () => fetchProductBySlug(slug),
+		queryFn: () => fetchProductBySlug(slug as string),
 	});
 
 	if (product) {
@@ -20,9 +24,16 @@ export async function generateMetadata({ params }: { params: paramsType }) {
 		const slug = product.slug;
 		const imageUrls = product.imageUrls;
 
-		const keywords = [];
-		if (categories || name || type || color || desc || slug) {
-			keywords.push(categories, name, type, color, desc, slug);
+		const keywords: string[] = [];
+		if (categories && name && type && color && desc && slug) {
+			keywords.push(
+				...(categories?.flat() ?? []),
+				name,
+				...(type?.flat() ?? []),
+				...(color?.flat() ?? []),
+				desc,
+				slug
+			);
 		}
 		return {
 			title: `${name.charAt(0).toUpperCase() + name.slice(1)}`,

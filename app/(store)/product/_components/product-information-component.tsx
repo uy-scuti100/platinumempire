@@ -12,6 +12,7 @@ import { useSearchParams } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import LinkComponent from "./link-component";
 import Prose from "./prose";
+import { SizeChart } from "./size-chart";
 
 const generateAllShoeSizes = () => Array.from({ length: 12 }, (_, i) => i + 37);
 
@@ -34,6 +35,8 @@ export default function ProductInformationComponent({
 	const selectedSize = searchParams.get(sizeType || "") ?? "";
 	const selectedColor = searchParams.get("color") ?? "";
 
+	const canShowJeanSizes =
+		product.clotheTypes?.includes("Trousers") && product.gender === "men";
 	// Size handling logic
 	const productSizes =
 		sizeType === "shoeSizes"
@@ -161,7 +164,14 @@ export default function ProductInformationComponent({
 
 			<div className="mb-6">
 				<div className="pb-4">
-					<p className="text-base text-[#808080] pb-2 font-medium">Sizes:</p>
+					<div className="flex justify-between items-center gap-3 text-sm w-full">
+						<p className="text-base text-[#808080] pb-2 font-medium">Sizes:</p>
+						{canShowJeanSizes && (
+							<div>
+								<SizeChart />
+							</div>
+						)}
+					</div>
 					<div className="flex flex-wrap items-center gap-3 pb-4 text-sm">
 						{Array.isArray(productSizes) &&
 							productSizes.length > 0 &&

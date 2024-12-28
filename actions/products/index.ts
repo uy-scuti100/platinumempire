@@ -7,6 +7,7 @@ export interface IProduct {
 	_id: string;
 	name: string;
 	slug: string;
+	gender: string;
 	color: string[];
 	description: string;
 	categories: string[];
@@ -172,6 +173,7 @@ export const fetchProductBySlug = async (
             name,
             "slug": slug.current,
             onSale,
+            gender,
             color,
             isNew,
             inStock,
