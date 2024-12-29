@@ -28,7 +28,7 @@ import wsh from "../public/wsh.jpg";
 export const menCategories: InfoProp[] = [
 	{
 		image: menshirt,
-		text: "Shirts",
+		text: "Tops/Shirts",
 		param: {
 			gender: "men",
 			category: "wears",
