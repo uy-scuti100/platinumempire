@@ -19,6 +19,9 @@ export default defineConfig({
 	dataset,
 	schema,
 	plugins: [
+		structureTool({ structure }),
+		visionTool({ defaultApiVersion: apiVersion }),
+		lowercasePlugin,
 		media({
 			creditLine: {
 				enabled: true,
@@ -26,9 +29,6 @@ export default defineConfig({
 			},
 			maximumUploadSize: 10000000,
 		}),
-		structureTool({ structure }),
-		visionTool({ defaultApiVersion: apiVersion }),
-		lowercasePlugin,
 	],
 	form: {
 		image: {
