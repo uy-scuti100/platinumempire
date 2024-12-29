@@ -40,7 +40,7 @@ export default function AdditionalImages({
 				isOpen={!!zoomImageUrl}
 				onClose={() => setZoomImageUrl(null)}
 				imageUrl={zoomImageUrl || ""}
-				alt={"platinum Fashion hub Image"}
+				alt={"Layemi Threads Image"}
 			/>
 		</figure>
 	);

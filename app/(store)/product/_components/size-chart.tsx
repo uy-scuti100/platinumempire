@@ -22,9 +22,9 @@ import { useMediaQuery } from "@/lib/useprefferedMotion";
 const SizeGuideContent = () => (
 	<div className="p-6">
 		<p className="mb-4 text-sm text-muted-foreground">
-			At Platinum Fashion Hub we know correctly fitting trousers are important.
-			To help you enjoy our products as much as possible, use the standardized
-			Mens Jean size conversion chart below.
+			At Layemi Threads we know correctly fitting trousers are important. To
+			help you enjoy our products as much as possible, use the standardized Mens
+			Jean size conversion chart below.
 		</p>
 
 		<h3 className="uppercase text-sm font-semibold pb-3"> Size Guide</h3>

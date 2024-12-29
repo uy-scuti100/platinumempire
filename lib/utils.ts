@@ -36,12 +36,12 @@ export const useDiscountedPrice = (
 };
 
 export const siteConfig = {
-	name: "Platinum Fashion Hub",
+	name: "Layemi Threads",
 	url: "https://platinumempire.vercel.app/",
 	ogImage:
 		"https://res.cloudinary.com/dsfhfgn4y/image/upload/v1735208754/opengraph-image_dcwmcc.png",
 	description:
-		"Platinum Fashion Hub is your destination for the latest fashion trends and timeless styles. Discover curated collections that elevate your wardrobe and make every outfit a statement. Explore, shop, and define your style with Platinum Fashion Hub. #FashionForward #PlatinumStyle",
+		"Layemi Threads is your destination for the latest fashion trends and timeless styles. Discover curated collections that elevate your wardrobe and make every outfit a statement. Explore, shop, and define your style with Layemi Threads. #FashionForward #PlatinumStyle",
 	links: {
 		twitter: "https://twitter.com/hussain_joe",
 		github: "https://github.com/uy-scuti100",
