@@ -35,12 +35,11 @@ export default function AdditionalImages({
 					</div>
 				))}
 			</figcaption>
-
 			<ImageModal
 				isOpen={!!zoomImageUrl}
-				onClose={() => setZoomImageUrl(null)}
-				imageUrl={zoomImageUrl || ""}
-				alt={"Layemi Threads Image"}
+				src={zoomImageUrl || ""}
+				alt="Zoomed Image"
+				onCloseAction={() => setZoomImageUrl(null)}
 			/>
 		</figure>
 	);
