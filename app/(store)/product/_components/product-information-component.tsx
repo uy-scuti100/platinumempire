@@ -82,7 +82,7 @@ export default function ProductInformationComponent({
 	const handleShare = () => {
 		if (navigator.share) {
 			navigator.share({
-				title: `${product.name} | Platinum fashion hub`,
+				title: `${product.name} | Layemi Threads`,
 				text: `Check out this product: ${product.name}`,
 				url: window.location.href,
 			});

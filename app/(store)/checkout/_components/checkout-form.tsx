@@ -142,7 +142,7 @@ export function CheckoutForm() {
 		reference: `ORDER_${new Date().getTime()}`,
 		email: watch("email"),
 		amount: totalAmount * 100,
-		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_LIVE_PUBLIC_KEY || "",
+		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_TEST_PUBLIC_KEY || "",
 		metadata: {
 			cart: cart,
 			totalAmount: totalAmount,

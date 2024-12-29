@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 		"designer bags",
 		"trendy shoes",
 		"fashion blog",
-		"platinum fashion hub",
+		"Layemi Threads",
 		"fashion website",
 		"online shopping",
 		"modern fashion",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 	],
 	authors: [
 		{
-			name: "PLatinum Fashion Hub",
+			name: "Layemi Threads",
 			url: "https://platinumempire.vercel.app/",
 		},
 	],

@@ -38,9 +38,9 @@ export default function AdditionalImages({
 
 			<ImageModal
 				isOpen={!!zoomImageUrl}
-				src={zoomImageUrl || ""}
-				alt="Zoomed Image"
-				onCloseAction={() => setZoomImageUrl(null)}
+				onClose={() => setZoomImageUrl(null)}
+				imageUrl={zoomImageUrl || ""}
+				alt={"Layemi Threads Image"}
 			/>
 		</figure>
 	);
