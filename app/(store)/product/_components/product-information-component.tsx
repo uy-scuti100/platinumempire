@@ -35,8 +35,14 @@ export default function ProductInformationComponent({
 	const selectedSize = searchParams.get(sizeType || "") ?? "";
 	const selectedColor = searchParams.get("color") ?? "";
 
-	const canShowJeanSizes =
+	const canShowMenJeanSizes =
 		product.clotheTypes?.includes("Trousers") && product.gender === "men";
+
+	const canShowFemaleTrouserSizes =
+		product.gender === "women" &&
+		product.clotheTypes?.some((type) =>
+			["Trousers", "CargoPants"].includes(type)
+		);
 	// Size handling logic
 	const productSizes =
 		sizeType === "shoeSizes"
@@ -82,7 +88,7 @@ export default function ProductInformationComponent({
 	const handleShare = () => {
 		if (navigator.share) {
 			navigator.share({
-				title: `${product.name} | Layemi Threads`,
+				title: `${product.name} | Platinum Fashion Hub`,
 				text: `Check out this product: ${product.name}`,
 				url: window.location.href,
 			});
@@ -166,16 +172,18 @@ export default function ProductInformationComponent({
 				<div className="pb-4">
 					<div className="flex justify-between items-center gap-3 text-sm w-full">
 						<p className="text-base text-[#808080] pb-2 font-medium">Sizes:</p>
-						{canShowJeanSizes && (
+						{canShowMenJeanSizes && (
 							<div>
-								<SizeChart />
+								<SizeChart gender="men" />
 							</div>
 						)}
+
+						{canShowFemaleTrouserSizes && <SizeChart gender="women" />}
 					</div>
 					<div className="flex flex-wrap items-center gap-3 pb-4 text-sm">
 						{Array.isArray(productSizes) &&
 							productSizes.length > 0 &&
-							productSizes.map((size, i) => {
+							[...new Set(productSizes.map(String))].map((size, i) => {
 								const isShoeSize = sizeType === "shoeSizes";
 								const isSizeAvailable = isShoeSize
 									? (availableSizes as number[]).includes(Number(size))

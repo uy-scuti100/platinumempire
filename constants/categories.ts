@@ -4,7 +4,7 @@ export interface InfoProp {
 	param?: {
 		gender?: string;
 		category?: string;
-		clotheType?: string;
+		clotheType?: string[];
 	};
 }
 
@@ -32,7 +32,7 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: "Shirts",
+			clotheType: ["Shirts"],
 		},
 	},
 	{
@@ -41,7 +41,7 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: "Trousers",
+			clotheType: ["Trousers"],
 		},
 	},
 	{
@@ -50,7 +50,7 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: "Hoodies",
+			clotheType: ["Hoodies"],
 		},
 	},
 	{
@@ -59,7 +59,7 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: "Jackets",
+			clotheType: ["Jackets"],
 		},
 	},
 	{
@@ -68,7 +68,7 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: "2Piece",
+			clotheType: ["2Piece"],
 		},
 	},
 	{
@@ -77,12 +77,12 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: "Shorts",
+			clotheType: ["Shorts"],
 		},
 	},
 	{
 		image: menshoe,
-		text: "Shoes",
+		text: "Shoes/Slides",
 		param: {
 			gender: "men",
 			category: "shoes",
@@ -96,7 +96,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "Tops",
+			clotheType: ["Tops"],
 		},
 	},
 	{
@@ -105,7 +105,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "Cargopants",
+			clotheType: ["Cargopants", "Trousers"],
 		},
 	},
 	{
@@ -114,7 +114,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "Gowns",
+			clotheType: ["Gowns"],
 		},
 	},
 	{
@@ -123,7 +123,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "2Piece",
+			clotheType: ["2Piece"],
 		},
 	},
 	{
@@ -132,7 +132,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "Jackets",
+			clotheType: ["Jackets"],
 		},
 	},
 	{
@@ -141,7 +141,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "Bikini",
+			clotheType: ["Bikini"],
 		},
 	},
 	{
@@ -150,7 +150,7 @@ export const wommenCategories: InfoProp[] = [
 		param: {
 			gender: "women",
 			category: "wears",
-			clotheType: "Lingerie",
+			clotheType: ["Lingerie"],
 		},
 	},
 	{

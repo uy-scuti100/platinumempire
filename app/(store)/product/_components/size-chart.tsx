@@ -19,12 +19,12 @@ import {
 } from "@/components/ui/sheet";
 import { useMediaQuery } from "@/lib/useprefferedMotion";
 
-const SizeGuideContent = () => (
+const MaleSizeGuideContent = () => (
 	<div className="p-6">
 		<p className="mb-4 text-sm text-muted-foreground">
-			At Layemi Threads we know correctly fitting trousers are important. To
-			help you enjoy our products as much as possible, use the standardized Mens
-			Jean size conversion chart below.
+			At Platinum Fashion Hub we know correctly fitting trousers are important.
+			To help you enjoy our products as much as possible, use the standardized
+			Mens Jean size conversion chart below.
 		</p>
 
 		<h3 className="uppercase text-sm font-semibold pb-3"> Size Guide</h3>
@@ -56,8 +56,70 @@ const SizeGuideContent = () => (
 		</table>
 	</div>
 );
+const FemaleSizeGuideContent = () => (
+	<div className="p-6">
+		<p className="mb-4 text-sm text-muted-foreground">
+			At Platinum Fashion Hub we know correctly fitting trousers are important.
+			To help you enjoy our products as much as possible, use the standardized
+			Woens Trousers size conversion chart below.
+		</p>
 
-export function SizeChart() {
+		<h3 className="uppercase text-sm font-semibold pb-3"> Size Guide</h3>
+		<table className="w-full border-collapse border border-border">
+			<thead className="bg-muted">
+				<tr>
+					<th className="py-2 px-4 text-left border border-border">Size</th>
+					<th className="py-2 px-4 text-left border border-border">UK Size</th>
+					<th className="py-2 px-4 text-left border border-border">UK Waist</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td className="py-2 px-4 border border-border">XS</td>
+					<td className="py-2 px-4 border border-border">4 - 6</td>
+					<td className="py-2 px-4 border border-border">25 - 26</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">S</td>
+					<td className="py-2 px-4 border border-border">8</td>
+					<td className="py-2 px-4 border border-border">27 - 28</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">M</td>
+					<td className="py-2 px-4 border border-border">10</td>
+					<td className="py-2 px-4 border border-border">29 - 30</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">L</td>
+					<td className="py-2 px-4 border border-border">12</td>
+					<td className="py-2 px-4 border border-border">31 - 32</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">XL</td>
+					<td className="py-2 px-4 border border-border">14</td>
+					<td className="py-2 px-4 border border-border">33 - 34</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">XXl</td>
+					<td className="py-2 px-4 border border-border">16</td>
+					<td className="py-2 px-4 border border-border">35 - 36</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">3XL</td>
+					<td className="py-2 px-4 border border-border">18</td>
+					<td className="py-2 px-4 border border-border">37 - 38</td>
+				</tr>
+				<tr>
+					<td className="py-2 px-4 border border-border">4XL</td>
+					<td className="py-2 px-4 border border-border">20</td>
+					<td className="py-2 px-4 border border-border">39 - 40</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+);
+
+export function SizeChart({ gender }: { gender: "men" | "women" }) {
 	const isMobile = useMediaQuery("(min-width: 768px)");
 
 	if (isMobile) {
@@ -75,10 +137,16 @@ export function SizeChart() {
 				<SheetContent>
 					<SheetHeader>
 						<SheetTitle className="uppercase text-sm">
-							Men's Jean Size Guide
+							{gender === "men"
+								? "Men's Jean Size Guide"
+								: "Women's Trouser Size Guide"}
 						</SheetTitle>
 					</SheetHeader>
-					<SizeGuideContent />
+					{gender === "men" ? (
+						<MaleSizeGuideContent />
+					) : (
+						<FemaleSizeGuideContent />
+					)}
 				</SheetContent>
 			</Sheet>
 		);
@@ -98,10 +166,16 @@ export function SizeChart() {
 			<DrawerContent>
 				<DrawerHeader>
 					<DrawerTitle className="uppercase text-sm">
-						Men's Jean Size Guide
+						{gender === "men"
+							? "Men's Jean Size Guide"
+							: "Women's Trouser Size Guide"}
 					</DrawerTitle>
 				</DrawerHeader>
-				<SizeGuideContent />
+				{gender === "men" ? (
+					<MaleSizeGuideContent />
+				) : (
+					<FemaleSizeGuideContent />
+				)}
 			</DrawerContent>
 		</Drawer>
 	);

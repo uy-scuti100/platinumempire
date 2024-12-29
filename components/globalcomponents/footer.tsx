@@ -70,8 +70,8 @@ export default function Footer() {
 			<div className="py-8 border-t border-border">
 				<div className="container mx-auto">
 					<div className="text-sm text-center text-muted-foreground">
-						&copy; Layemi Threads Inc {new Date().getFullYear()}. <br /> All
-						rights reserved.
+						&copy; Platinum Fashion Hub Inc {new Date().getFullYear()}. <br />{" "}
+						All rights reserved.
 					</div>
 				</div>
 				<div className="mt-10 text-sm text-center text-muted-foreground">

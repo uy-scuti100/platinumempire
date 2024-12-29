@@ -47,7 +47,7 @@ export default function Menu({
 				</div>
 			</SheetTrigger>
 			<SheetContent
-				side={isMobile ? "top" : "left"}
+				side={isMobile ? "bottom" : "left"}
 				className="overflow-auto z-[9999]"
 			>
 				<SheetHeader>

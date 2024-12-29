@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
 		// Send notification to store owner
 		await resend.emails.send({
-			from: "🛒 Order at Layemi Threads <onboarding@resend.dev>",
+			from: "🛒 Order at Platinum Fashion Hub <onboarding@resend.dev>",
 			to: STORE_EMAIL,
 			subject: `New Order #${orderData.orderNumber}`,
 			react: StoreNotificationEmail({

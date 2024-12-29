@@ -87,8 +87,10 @@ export default async function Page({
 	}
 
 	// Handle clothe types filter
-	if (clotheTypes && typeof clotheTypes === "string") {
-		const typesArray = clotheTypes.split(",");
+	if (clotheTypes) {
+		const typesArray = Array.isArray(clotheTypes)
+			? clotheTypes
+			: clotheTypes.split(",");
 		const typeConditions = typesArray.map(
 			(type) =>
 				`count(clotheTypes[_type == "reference" && references(*[_type == "clotheType" && name == "${type}"]._id)]) > 0`
@@ -96,17 +98,6 @@ export default async function Page({
 		filterConditions.push(`(${typeConditions.join(" || ")})`);
 	}
 
-	// Handle size filters
-	// const handleSizeFilter = (sizes: string | undefined, type: string) => {
-	// 	if (sizes && typeof sizes === "string") {
-	// 		const sizesArray = sizes.split(",");
-	// 		const sizeConditions = sizesArray.map(
-	// 			(size) =>
-	// 				`count(${type}[_type == "reference" && references(*[_type == "${type.slice(0, -1)}" && name == "${size}"]._id)]) > 0`
-	// 		);
-	// 		filterConditions.push(`(${sizeConditions.join(" || ")})`);
-	// 	}
-	// };
 	const handleSizeFilter = (sizes: string | undefined, type: string) => {
 		if (!sizes || typeof sizes !== "string") return;
 
