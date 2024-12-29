@@ -2,7 +2,7 @@
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { useState } from "react";
-import { ZoomModal } from "./image-zoomer";
+import ImageModal from "./relatedGoods/imageModal";
 
 export default function AdditionalImages({
 	imageUrls,
@@ -36,11 +36,11 @@ export default function AdditionalImages({
 				))}
 			</figcaption>
 
-			<ZoomModal
+			<ImageModal
 				isOpen={!!zoomImageUrl}
-				onClose={() => setZoomImageUrl(null)}
-				imageUrl={zoomImageUrl || ""}
-				alt={"platinum Fashion hub Image"}
+				src={zoomImageUrl || ""}
+				alt="Zoomed Image"
+				onCloseAction={() => setZoomImageUrl(null)}
 			/>
 		</figure>
 	);
