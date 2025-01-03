@@ -24,11 +24,11 @@ export default function ProductComponent({ slug }: { slug: string }) {
 				<div className="max-w-[1920px] mx-auto">
 					<ProductBreadcrumb product={product} />
 					<div className="px-4 mx-auto mt-5">
-						<div className="grid h-full grid-cols-1 gap-3 md:grid-cols-3">
+						<div className="grid h-full grid-cols-1 gap-3 md:grid-cols-4">
 							<div className="w-full md:col-span-2">
 								<ProductImageComponent product={product} isMobile={isMobile} />
 							</div>
-							<div className="w-full md:col-span-1">
+							<div className="w-full md:col-span-2">
 								<ProductInformationComponent product={product} />
 							</div>
 						</div>

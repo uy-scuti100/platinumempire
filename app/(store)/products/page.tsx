@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-query";
 import GridContainer from "./components/GridContainer";
 
-// Define the expected parameter types
 export type ParamsType = Promise<{
 	date?: string;
 	price?: string;
@@ -15,7 +14,7 @@ export type ParamsType = Promise<{
 	isNew?: string;
 	gender?: string;
 	onSale?: string;
-	clotheTypes?: string;
+	clotheType?: string;
 	clotheSizes?: string;
 	shoeSizes?: string;
 	bagSizes?: string;
@@ -34,7 +33,7 @@ export default async function Page({
 		categories,
 		isNew,
 		onSale,
-		clotheTypes,
+		clotheType,
 		clotheSizes,
 		shoeSizes,
 		bagSizes,
@@ -83,14 +82,16 @@ export default async function Page({
 
 	// Handle gender filter
 	if (gender) {
-		filterConditions.push(`gender == "${gender}"`);
+		const genderArray = Array.isArray(gender) ? gender : gender.split(",");
+		const genderConditions = genderArray.map((g) => `gender == "${g}"`);
+		filterConditions.push(`(${genderConditions.join(" || ")})`);
 	}
 
 	// Handle clothe types filter
-	if (clotheTypes) {
-		const typesArray = Array.isArray(clotheTypes)
-			? clotheTypes
-			: clotheTypes.split(",");
+	if (clotheType) {
+		const typesArray = Array.isArray(clotheType)
+			? clotheType
+			: clotheType.split(",");
 		const typeConditions = typesArray.map(
 			(type) =>
 				`count(clotheTypes[_type == "reference" && references(*[_type == "clotheType" && name == "${type}"]._id)]) > 0`

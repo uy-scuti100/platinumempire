@@ -50,7 +50,7 @@ export interface FilterState {
 	onSale: boolean;
 	gender: string;
 	categories: string[];
-	clotheTypes: string[];
+	clotheType: string[];
 	accessorySizes: string[];
 
 	clotheSizes: string[];
@@ -83,7 +83,7 @@ export function ProductFilter() {
 			onSale: searchParams.get("onSale") === "true",
 			gender: searchParams.get("gender") || "",
 			categories: searchParams.get("categories")?.split(",") || [],
-			clotheTypes: searchParams.get("clotheTypes")?.split(",") || [],
+			clotheType: searchParams.get("clotheType")?.split(",") || [],
 			accessorySizes: searchParams.get("accessorySizes")?.split(",") || [],
 			clotheSizes: searchParams.get("clotheSizes")?.split(",") || [],
 			shoeSizes: searchParams.get("shoeSizes")?.split(",").map(Number) || [],
@@ -114,8 +114,8 @@ export function ProductFilter() {
 			if (newFilters.gender) {
 				params.set("gender", newFilters.gender);
 			}
-			if (newFilters.clotheTypes.length) {
-				params.set("clotheTypes", newFilters.clotheTypes.join(","));
+			if (newFilters.clotheType.length) {
+				params.set("clotheType", newFilters.clotheType.join(","));
 			}
 			if (newFilters.accessorySizes.length) {
 				params.set("accessorySize", newFilters.accessorySizes.join(","));
@@ -164,7 +164,7 @@ export function ProductFilter() {
 		onSale: false,
 		gender: "",
 		categories: [],
-		clotheTypes: [],
+		clotheType: [],
 		accessorySizes: [],
 		clotheSizes: [],
 		shoeSizes: [],
@@ -470,13 +470,13 @@ const ProductContent = ({
 													>
 														<Checkbox
 															id={type}
-															checked={localFilters.clotheTypes.includes(type)}
+															checked={localFilters.clotheType.includes(type)}
 															onCheckedChange={(checked) => {
 																handleFilterChange({
 																	...localFilters,
-																	clotheTypes: checked
-																		? [...localFilters.clotheTypes, type]
-																		: localFilters.clotheTypes.filter(
+																	clotheType: checked
+																		? [...localFilters.clotheType, type]
+																		: localFilters.clotheType.filter(
 																				(t) => t !== type
 																			),
 																});

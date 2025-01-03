@@ -4,18 +4,21 @@ export const orderSchema = defineType({
 	title: "Orders",
 	icon: () => "🛒",
 	type: "document",
+	readOnly: true,
 	fields: [
 		defineField({
 			name: "customerName",
 			title: "Customer Name",
 			type: "string",
 			validation: (Rule) => Rule.required(),
+			readOnly: true,
 		}),
 		defineField({
 			name: "email",
 			title: "Email Address",
 			type: "string",
 			validation: (Rule) => Rule.required().email(),
+			readOnly: true,
 		}),
 
 		defineField({
@@ -23,6 +26,7 @@ export const orderSchema = defineType({
 			title: "Phone Number",
 			type: "string",
 			validation: (Rule) => Rule.required(),
+			readOnly: true,
 		}),
 		defineField({
 			name: "deliveryMethod",
@@ -35,6 +39,7 @@ export const orderSchema = defineType({
 				],
 			},
 			validation: (Rule) => Rule.required(),
+			readOnly: true,
 		}),
 		defineField({
 			name: "address",
@@ -47,11 +52,13 @@ export const orderSchema = defineType({
 					}
 					return true;
 				}),
+			readOnly: true,
 		}),
 		defineField({
 			name: "apartment",
 			title: "Apartment",
 			type: "string",
+			readOnly: true,
 		}),
 		defineField({
 			name: "city",
@@ -64,6 +71,7 @@ export const orderSchema = defineType({
 					}
 					return true;
 				}),
+			readOnly: true,
 		}),
 		defineField({
 			name: "country",
@@ -76,6 +84,7 @@ export const orderSchema = defineType({
 					}
 					return true;
 				}),
+			readOnly: true,
 		}),
 		defineField({
 			name: "state",
@@ -88,22 +97,26 @@ export const orderSchema = defineType({
 					}
 					return true;
 				}),
+			readOnly: true,
 		}),
 		defineField({
 			name: "postalCode",
 			title: "Postal Code",
 			type: "string",
+			readOnly: true,
 		}),
 		defineField({
 			name: "orderNote",
 			title: "Order Note",
 			type: "string",
+			readOnly: true,
 		}),
 		defineField({
 			name: "totalAmount",
 			title: "Total Amount",
 			type: "number",
 			validation: (Rule) => Rule.required().min(0),
+			readOnly: true,
 		}),
 		defineField({
 			name: "paymentStatus",
@@ -117,6 +130,7 @@ export const orderSchema = defineType({
 				],
 			},
 			validation: (Rule) => Rule.required(),
+			readOnly: true,
 		}),
 		defineField({
 			name: "products",
@@ -130,7 +144,7 @@ export const orderSchema = defineType({
 							name: "product",
 							title: "Product",
 							type: "reference",
-							to: [{ type: "products" }], // Direct reference to product document
+							to: [{ type: "products" }],
 							validation: (Rule) => Rule.required(),
 						},
 						{
@@ -138,34 +152,53 @@ export const orderSchema = defineType({
 							title: "Quantity",
 							type: "number",
 							validation: (Rule) => Rule.required().min(1),
+							readOnly: true,
 						},
 						{
 							name: "price",
 							title: "Price at Time of Purchase",
 							type: "number",
 							validation: (Rule) => Rule.required().min(0),
+							readOnly: true,
+						},
+						{
+							name: "color",
+							type: "string",
+							validation: (Rule) => Rule.required(),
+							readOnly: true,
+						},
+						{
+							name: "size",
+							type: "string",
+							validation: (Rule) => Rule.required(),
+							readOnly: true,
 						},
 					],
+					readOnly: true,
 				},
 			],
+			readOnly: true,
 		}),
 
 		defineField({
 			name: "paymentReference",
 			title: "Payment Reference",
 			type: "string",
+			readOnly: true,
 		}),
 		defineField({
 			name: "shippingFee",
 			title: "Shipping Fee",
 			type: "number",
 			validation: (Rule) => Rule.required().min(0),
+			readOnly: true,
 		}),
 		defineField({
 			name: "orderNumber",
 			title: "Order Number",
 			type: "string",
 			validation: (Rule) => Rule.required(),
+			readOnly: true,
 		}),
 
 		defineField({

@@ -17,11 +17,11 @@ export async function createOrder(orderData: any) {
 	try {
 		// Prepare Sanity mutation
 		const mutation = {
+			_key: crypto.randomUUID(),
 			_type: "order",
 			...orderData,
 			createdAt: new Date().toISOString(),
 		};
-
 		// Send to Sanity
 		const response = await fetch(
 			`https://${process.env.SANITY_STUDIO_PROJECT_ID}.api.sanity.io/${process.env.SANITY_API_VERSION}/data/mutate/${process.env.SANITY_STUDIO_DATASET}`,

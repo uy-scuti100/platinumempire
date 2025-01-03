@@ -207,20 +207,16 @@ export function CheckoutForm() {
 				try {
 					// Create formatted cart data with proper references
 					const cartData = cart.map((item) => ({
+						_key: crypto.randomUUID(), // This is required for array items in Sanity
 						product: {
+							_key: crypto.randomUUID(), // This is required for array items in Sanity
 							_type: "reference",
 							_ref: item._id,
 						},
 						quantity: item.quantity,
+						color: item.selectedColor,
+						size: item.selectedSize,
 						price: item.price,
-
-						productDetails: {
-							name: item.name,
-							slug: item.slug,
-							image: item.image,
-							color: item.selectedColor,
-							size: item.selectedSize,
-						},
 					}));
 
 					const orderDetails = {
@@ -250,12 +246,17 @@ export function CheckoutForm() {
 						...orderDetails,
 						orderNote: data.orderNote,
 						issueDate: new Date().toISOString(),
-						products: cartData.map((item) => ({
-							...item.productDetails,
-							quantity: item.quantity,
-							price: item.price,
-							subtotal: item.quantity * item.price,
-						})),
+						products: await Promise.all(
+							cart.map(async (item) => ({
+								name: item.name,
+								color: item.selectedColor,
+								size: item.selectedSize,
+								quantity: item.quantity,
+								price: item.price,
+								subtotal: item.quantity * item.price,
+								image: item.image,
+							}))
+						),
 					};
 
 					// First redirect to thank you page

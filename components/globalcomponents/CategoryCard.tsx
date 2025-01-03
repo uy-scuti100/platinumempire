@@ -11,7 +11,7 @@ export default function CategoryCard({ info }: { info: InfoProp }) {
 				query: {
 					...(param?.gender && { gender: param.gender }),
 					...(param?.category && { categories: param.category }),
-					...(param?.clotheType && { clotheTypes: param.clotheType }),
+					...(param?.clotheType && { clotheType: param.clotheType }),
 				},
 			}}
 			// onClick={() => window.scrollTo(0, 0)}

@@ -123,7 +123,7 @@ function CheckoutButton({ onClose }: { onClose?: () => void }) {
 		<Button asChild>
 			<Link
 				href={"/checkout"}
-				className="block w-full p-3 text-sm font-medium text-center  rounded-none  opacity-90 hover:opacity-100"
+				className="block w-full py-6 px-3 text-base font-medium text-center rounded-none  opacity-90 hover:opacity-100"
 				onClick={onClose}
 			>
 				{pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}

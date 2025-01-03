@@ -88,7 +88,7 @@ export default function Menu({
 														pathname: "/products",
 														query: {
 															...("gender" in subLink && {
-																gender: subLink.gender,
+																gender: subLink.gender.join(","),
 															}),
 															...("type" in subLink && { isNew: subLink.type }),
 															...(subLink.title && {
@@ -144,19 +144,19 @@ export const SIDEBARLINKS = [
 		title: "UNISEX",
 		links: [
 			{
-				gender: "unisex",
+				gender: ["unisex"],
 				title: "wears",
 			},
 			{
-				gender: "unisex",
+				gender: ["unisex"],
 				title: "shoes",
 			},
 			{
-				gender: "unisex",
+				gender: ["unisex"],
 				title: "bags",
 			},
 			{
-				gender: "unisex",
+				gender: ["unisex"],
 				title: "accessories",
 			},
 		],
@@ -166,21 +166,21 @@ export const SIDEBARLINKS = [
 		title: "MALE",
 		links: [
 			{
-				gender: "men",
+				gender: ["men", "unisex"],
 				title: "wears",
 			},
 			{
-				gender: "men",
+				gender: ["men", "unisex"],
 				title: "shoes",
 				category: "shoes",
 			},
 			{
-				gender: "men",
+				gender: ["men", "unisex"],
 				title: "bags",
 				category: "bags",
 			},
 			{
-				gender: "men",
+				gender: ["men", "unisex"],
 				title: "accessories",
 				category: "accessories",
 			},
@@ -190,19 +190,19 @@ export const SIDEBARLINKS = [
 		title: "FEMALE",
 		links: [
 			{
-				gender: "women",
+				gender: ["women", "unisex"],
 				title: "wears",
 			},
 			{
-				gender: "women",
+				gender: ["women", "unisex"],
 				title: "shoes",
 			},
 			{
-				gender: "women",
+				gender: ["women", "unisex"],
 				title: "bags",
 			},
 			{
-				gender: "women",
+				gender: ["women", "unisex"],
 				title: "accessories",
 			},
 		],

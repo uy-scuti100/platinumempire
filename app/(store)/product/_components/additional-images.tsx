@@ -11,7 +11,7 @@ export default function AdditionalImages({
 }) {
 	const [zoomImageUrl, setZoomImageUrl] = useState<string | null>(null);
 	return (
-		<figure className="px-4 mt-10 mx-auto max-w-[1920px]">
+		<figure className="px-4 mt-20 mx-auto max-w-[1920px]">
 			<h2 className="mb-6 text-2xl font-semibold ">Get a Closer Look 👀</h2>
 			<figcaption className="grid grid-cols-2 place-items-center gap-x-1 gap-y-1 lg:grid-cols-3 auto-rows-fr">
 				{imageUrls?.map((imageUrl, index) => (

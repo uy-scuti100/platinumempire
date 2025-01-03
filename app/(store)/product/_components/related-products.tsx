@@ -30,7 +30,7 @@ export default function RelatedProducts({
 	const carouselProducts = products ? [...products] : [];
 
 	return (
-		<div className="w-full px-4 mt-10 mx-auto max-w-[1920px]">
+		<div className="w-full px-4 mt-20 mx-auto max-w-[1920px]">
 			<div className="mb-8">
 				<h2 className="text-xl font-bold capitalize ">YOU MAY ALSO LIKE</h2>
 			</div>

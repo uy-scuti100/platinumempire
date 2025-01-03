@@ -32,7 +32,7 @@ export const menCategories: InfoProp[] = [
 		param: {
 			gender: "men",
 			category: "wears",
-			clotheType: ["Shirts"],
+			clotheType: ["Tops", "Top/Shirts"],
 		},
 	},
 	{
