@@ -2,7 +2,7 @@ export interface InfoProp {
 	image: any;
 	text: string;
 	param?: {
-		gender?: string;
+		gender?: string[];
 		category?: string;
 		clotheType?: string[];
 	};
@@ -30,7 +30,7 @@ export const menCategories: InfoProp[] = [
 		image: menshirt,
 		text: "Tops/Shirts",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "wears",
 			clotheType: ["Tops", "Top/Shirts"],
 		},
@@ -39,7 +39,7 @@ export const menCategories: InfoProp[] = [
 		image: menstrouser,
 		text: "Trousers",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "wears",
 			clotheType: ["Trousers"],
 		},
@@ -48,7 +48,7 @@ export const menCategories: InfoProp[] = [
 		image: menshoodies,
 		text: "Hoodies",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "wears",
 			clotheType: ["Hoodies"],
 		},
@@ -57,7 +57,7 @@ export const menCategories: InfoProp[] = [
 		image: mensdenim,
 		text: "Jackets",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "wears",
 			clotheType: ["Jackets"],
 		},
@@ -66,7 +66,7 @@ export const menCategories: InfoProp[] = [
 		image: men2piece,
 		text: "2 Piece",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "wears",
 			clotheType: ["2Piece"],
 		},
@@ -75,7 +75,7 @@ export const menCategories: InfoProp[] = [
 		image: mensshort,
 		text: "Shorts",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "wears",
 			clotheType: ["Shorts"],
 		},
@@ -84,7 +84,7 @@ export const menCategories: InfoProp[] = [
 		image: menshoe,
 		text: "Shoes/Slides",
 		param: {
-			gender: "men",
+			gender: ["men", "unisex"],
 			category: "shoes",
 		},
 	},
@@ -94,7 +94,7 @@ export const wommenCategories: InfoProp[] = [
 		image: womentop,
 		text: "Tops",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["Tops"],
 		},
@@ -103,7 +103,7 @@ export const wommenCategories: InfoProp[] = [
 		image: womenstrouser,
 		text: "Trousers/Cargopants",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["Cargopants", "Trousers"],
 		},
@@ -112,7 +112,7 @@ export const wommenCategories: InfoProp[] = [
 		image: gown,
 		text: "Gowns",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["Gowns"],
 		},
@@ -121,7 +121,7 @@ export const wommenCategories: InfoProp[] = [
 		image: women2piece,
 		text: "Two Piece",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["2Piece"],
 		},
@@ -130,7 +130,7 @@ export const wommenCategories: InfoProp[] = [
 		image: womendenim,
 		text: "Denim Jackets",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["Jackets"],
 		},
@@ -139,7 +139,7 @@ export const wommenCategories: InfoProp[] = [
 		image: womenbikini,
 		text: "Bikini",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["Bikini"],
 		},
@@ -148,7 +148,7 @@ export const wommenCategories: InfoProp[] = [
 		image: lingerie,
 		text: "Lingerie",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "wears",
 			clotheType: ["Lingerie"],
 		},
@@ -157,7 +157,7 @@ export const wommenCategories: InfoProp[] = [
 		image: wsh,
 		text: "Shoes",
 		param: {
-			gender: "women",
+			gender: ["women", "unisex"],
 			category: "shoes",
 		},
 	},
